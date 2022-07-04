@@ -1,6 +1,12 @@
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes";
+
+
 const App = () => {
   return (
-    <div className="App">User Management</div>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 
