@@ -20,4 +20,4 @@ export const DarkTheme = createTheme({
       default: '#202124',
     }
   }
-})
+});
