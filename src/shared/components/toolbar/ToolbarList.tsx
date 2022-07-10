@@ -1,7 +1,7 @@
 import { Box, Button, Icon, Paper, TextField, useTheme } from '@mui/material';
 import { FC } from 'react';
 
-interface IToolbarProps {
+interface IToolbarListProps {
   find?: string,
   showInput?: boolean,
   onChange?: (text: string) => void,
@@ -11,7 +11,7 @@ interface IToolbarProps {
   newOnClick?: () => void,
 }
 
-export const Toolbar: FC<IToolbarProps> = ({
+export const ToolbarList: FC<IToolbarListProps> = ({
   find = '',
   showInput = false,
   onChange,
