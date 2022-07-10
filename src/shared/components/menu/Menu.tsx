@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Avatar, Divider, Drawer, List, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { useDrawerContext } from '../../contexts';
 import ListItemMenu from './ListItemMenu/ListItemMenu';
 
 interface IMenuProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const Menu: React.FC<IMenuProps> = ({ children }) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Icon, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ interface IListItemMenuProps {
   onClick: (() => void) | undefined,
 }
 
-const ListItemMenu: React.FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
+const ListItemMenu: FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
   const navigate = useNavigate();
 
   const resolvedPath = useResolvedPath(to);
