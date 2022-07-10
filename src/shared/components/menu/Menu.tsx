@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { Avatar, Divider, Drawer, List, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { useDrawerContext } from '../../contexts';
@@ -8,7 +8,7 @@ interface IMenuProps {
   children: ReactNode;
 }
 
-export const Menu: React.FC<IMenuProps> = ({ children }) => {
+export const Menu: FC<IMenuProps> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
