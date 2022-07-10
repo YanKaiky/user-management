@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
-import { Avatar, Divider, Drawer, List, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
-import { useDrawerContext } from '../../contexts';
+import { useAppThemeContext, useDrawerContext } from '../../contexts';
 import ListItemMenu from './ListItemMenu/ListItemMenu';
 
 interface IMenuProps {
@@ -13,6 +13,7 @@ export const Menu: FC<IMenuProps> = ({ children }) => {
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+  const { themeName, toggleTheme } = useAppThemeContext();
 
   return (
     <>
@@ -29,6 +30,17 @@ export const Menu: FC<IMenuProps> = ({ children }) => {
               {drawerOptions.map(drawerOption => (
                 <ListItemMenu key={drawerOption.path} icon={drawerOption.icon} label={drawerOption.label} to={drawerOption.path} onClick={smDown ? toggleDrawerOpen : undefined} />
               ))}
+            </List>
+          </Box>
+
+          <Box>
+            <List component="nav">
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  {themeName === 'light' ? <Icon>dark_mode</Icon> : <Icon>brightness_4</Icon>}
+                </ListItemIcon>
+                <ListItemText primary='Theme' />
+              </ListItemButton>
             </List>
           </Box>
         </Box>
