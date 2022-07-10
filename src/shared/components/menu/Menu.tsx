@@ -1,7 +1,8 @@
-import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
-import { Box } from '@mui/system';
 import React from 'react';
+import { Avatar, Divider, Drawer, List, useMediaQuery, useTheme } from '@mui/material';
+import { Box } from '@mui/system';
 import { useDrawerContext } from '../../contexts';
+import ListItemMenu from './ListItemMenu/ListItemMenu';
 
 interface IMenuProps {
   children: React.ReactNode;
@@ -11,8 +12,8 @@ export const Menu: React.FC<IMenuProps> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
-  
+  const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+
   return (
     <>
       <Drawer open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
@@ -25,12 +26,9 @@ export const Menu: React.FC<IMenuProps> = ({ children }) => {
 
           <Box flex={1}>
             <List component="nav">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>home</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Home Page" />
-              </ListItemButton>
+              {drawerOptions.map(drawerOption => (
+                <ListItemMenu key={drawerOption.path} icon={drawerOption.icon} label={drawerOption.label} to={drawerOption.path} onClick={smDown ? toggleDrawerOpen : undefined} />
+              ))}
             </List>
           </Box>
         </Box>
