@@ -1,7 +1,6 @@
 import { ReactNode, FC } from 'react';
-import { Icon, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Icon, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useDrawerContext } from '../contexts';
-import { Box } from '@mui/system';
 
 interface IBaseLayoutProps {
   title: string,
