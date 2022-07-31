@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Icon, Paper, Skeleton, useTheme } from '@mui/material';
+import { Box, Button, Divider, Icon, Paper, Skeleton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { FC } from 'react';
 
 interface IToolbarDetailsProps {
@@ -14,7 +14,7 @@ interface IToolbarDetailsProps {
   loadingDeleteButton?: boolean,
   loadingSaveButton?: boolean,
   loadingSaveAndBackButton?: boolean,
-  
+
   newButtonOnClick?: () => void;
   backButtonOnClick?: () => void;
   deleteButtonOnClick?: () => void;
@@ -35,7 +35,7 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
   loadingDeleteButton = false,
   loadingSaveButton = false,
   loadingSaveAndBackButton = false,
-  
+
   newButtonOnClick,
   backButtonOnClick,
   deleteButtonOnClick,
@@ -43,6 +43,8 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
   saveAndBackButtonOnClick
 }) => {
   const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Box
@@ -63,13 +65,15 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
           onClick={saveButtonOnClick}
           startIcon={<Icon>save</Icon>}
         >
-          Save
+          <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+            Save
+          </Typography>
         </Button>
       )}
 
       {loadingSaveButton && (<Skeleton width={110} height={60} />)}
 
-      {(showSaveAndBackButton && !loadingSaveAndBackButton) && (
+      {(showSaveAndBackButton && !loadingSaveAndBackButton && !smDown && !mdDown) && (
         <Button
           variant='outlined'
           color='primary'
@@ -77,11 +81,13 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
           onClick={saveAndBackButtonOnClick}
           startIcon={<Icon>save</Icon>}
         >
-          Save & back
+          <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+            Save & back
+          </Typography>
         </Button>
       )}
 
-      {loadingSaveAndBackButton && (<Skeleton width={146} height={60} />)}
+      {loadingSaveAndBackButton && !smDown && !mdDown && (<Skeleton width={146} height={60} />)}
 
       {(showDeleteButton && !loadingDeleteButton) && (
         <Button
@@ -91,13 +97,15 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
           onClick={deleteButtonOnClick}
           startIcon={<Icon>delete</Icon>}
         >
-          Delete
+          <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+            Delete
+          </Typography>
         </Button>
       )}
 
       {loadingDeleteButton && (<Skeleton width={107} height={60} />)}
 
-      {(showNewButton && !loadingNewButton) && (
+      {(showNewButton && !loadingNewButton && !smDown) && (
         <Button
           variant='outlined'
           color='primary'
@@ -105,13 +113,15 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
           onClick={newButtonOnClick}
           startIcon={<Icon>add</Icon>}
         >
-          {newFind}
+          <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+            {newFind}
+          </Typography>
         </Button>
       )}
 
-      {loadingNewButton && (<Skeleton width={87} height={60} />)}
+      {loadingNewButton && !smDown && (<Skeleton width={87} height={60} />)}
 
-      <Divider variant='middle' orientation='vertical' />
+      {!smDown && !mdDown && <Divider variant='middle' orientation='vertical' />}
 
       {(showBackButton && !loadingBackButton) && (
         <Button
@@ -121,7 +131,9 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
           onClick={backButtonOnClick}
           startIcon={<Icon>arrow_back_ios</Icon>}
         >
-          Back
+          <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+            Back
+          </Typography>
         </Button>
       )}
 
