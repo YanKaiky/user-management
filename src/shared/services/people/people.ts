@@ -1,4 +1,4 @@
-import URL from './api_url';
+import URL from '../api_url';
 
 const PEOPLEAPI = URL + '/people';
 
