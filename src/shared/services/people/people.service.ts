@@ -7,15 +7,13 @@ interface IPeopleData {
   email: string;
   cpf: string;
   birth_date: string;
+  city_guid: string;
 }
 
-// const createPeople = async (): Promise<IPeopleData> => { };
-const getAllPeople = async (): Promise<IPeopleData> => {
+const createPeople = async (data: Omit<IPeopleData, 'guid'>): Promise<IPeopleData> => {
   try {
-    const response = await axios.get(PEOPLEAPI);
+    const response = await axios.post(PEOPLEAPI, data);
 
-    console.log(response);
-    
     return response.data;
   } catch (error) {
     console.log(error);
@@ -23,14 +21,55 @@ const getAllPeople = async (): Promise<IPeopleData> => {
     throw error;
   }
 };
-// const getPeopleByGuid = async (): Promise<IPeopleData> => { };
-// const updatePeople = async (): Promise<IPeopleData> => { };
-// const deletePeople = async (): Promise<string> => { };
+
+const getAllPeople = async (): Promise<IPeopleData[]> => {
+  try {
+    const response = await axios.get(PEOPLEAPI);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+};
+
+const getPeopleByGuid = async (guid: string): Promise<IPeopleData> => {
+  try {
+    const response = await axios.get(`${PEOPLEAPI}/${guid}`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+};
+
+const updatePeople = async (guid: string, data: IPeopleData): Promise<void> => {
+  try {
+    await axios.put(`${PEOPLEAPI}/${guid}`, data);
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+};
+
+const deletePeople = async (guid: string): Promise<void> => {
+  try {
+    await axios.delete(`${PEOPLEAPI}/${guid}`);
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+};
 
 export const PeopleService = {
-  // createPeople,
+  createPeople,
   getAllPeople,
-  // getPeopleByGuid,
-  // updatePeople,
-  // deletePeople
+  getPeopleByGuid,
+  updatePeople,
+  deletePeople
 };

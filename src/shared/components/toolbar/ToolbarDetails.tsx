@@ -1,7 +1,9 @@
-import { Box, Button, Divider, Icon, Paper, Skeleton, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, Divider, Icon, Paper, Skeleton, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { FC } from 'react';
 
 interface IToolbarDetailsProps {
+  searchText?: string,
+  showSearchField?: boolean,
   newFind?: string,
   showNewButton?: boolean,
   showBackButton?: boolean,
@@ -15,6 +17,7 @@ interface IToolbarDetailsProps {
   loadingSaveButton?: boolean,
   loadingSaveAndBackButton?: boolean,
 
+  handleSearchText?: (newText: string) => void;
   newButtonOnClick?: () => void;
   backButtonOnClick?: () => void;
   deleteButtonOnClick?: () => void;
@@ -23,6 +26,8 @@ interface IToolbarDetailsProps {
 }
 
 export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
+  searchText = '',
+  showSearchField = false,
   newFind = 'New',
   showNewButton = true,
   showBackButton = true,
@@ -36,6 +41,7 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
   loadingSaveButton = false,
   loadingSaveAndBackButton = false,
 
+  handleSearchText,
   newButtonOnClick,
   backButtonOnClick,
   deleteButtonOnClick,
@@ -57,6 +63,15 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
       height={theme.spacing(5)}
       component={Paper}
     >
+      {showSearchField && (
+        <TextField
+          size='small'
+          value={searchText}
+          placeholder='Search...'
+          onChange={(e) => handleSearchText?.(e.target.value)}
+        />
+      )}
+
       {(showSaveButton && !loadingSaveButton) && (
         <Button
           variant='contained'

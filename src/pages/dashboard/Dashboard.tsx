@@ -1,15 +1,8 @@
 import { FC } from 'react';
 import { ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { PeopleService } from '../../shared/services/people/people.service';
 
 export const Dashboard: FC = () => {
-  (async () => {
-    const data = await PeopleService.getAllPeople();
-
-    console.log(data);
-  })();
-
   return (
     <BaseLayout title='Home Page' toolbar={<ToolbarDetails showSaveAndBackButton showNewButton />}>
       Lorem ipsum dolor sit amet consectetur adipisicing elit.
