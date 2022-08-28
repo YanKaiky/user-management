@@ -40,8 +40,18 @@ export const People: FC = () => {
     })();
   }, [search]);
 
+  const handleDelete = async (guid: string) => {
+    if (confirm('Do you want to delete Person?')) await PeopleService.deletePeople(guid);
+
+    setLoading(true);
+    const data = await PeopleService.getAllPeople();
+
+    setPeople(data);
+    setLoading(false);
+  };
+
   return (
-    <BaseLayout title='People List' toolbar={
+    <BaseLayout title='People' toolbar={
       <ToolbarDetails
         showSearchField
         showNewButton
@@ -53,13 +63,14 @@ export const People: FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align='center'>Actions</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Last Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>City</TableCell>
               <TableCell>CPF</TableCell>
               <TableCell>Birth Date</TableCell>
+              <TableCell align='center'>Edit</TableCell>
+              <TableCell align='center'>Delete</TableCell>
             </TableRow>
           </TableHead>
 
@@ -68,17 +79,22 @@ export const People: FC = () => {
               return (
                 <>
                   <TableRow key={person.guid}>
-                    <TableCell align='center'>
-                      <IconButton>
-                        <Icon>edit</Icon>
-                      </IconButton>
-                    </TableCell>
                     <TableCell>{person.name}</TableCell>
                     <TableCell>{person.last_name}</TableCell>
                     <TableCell>{person.email}</TableCell>
                     <TableCell>{person.city}</TableCell>
                     <TableCell>{validateCPF(person.cpf)}</TableCell>
                     <TableCell>{new Date(person.birth_date).toLocaleDateString('pt-BR')}</TableCell>
+                    <TableCell align='center'>
+                      <IconButton>
+                        <Icon color='secondary'>edit</Icon>
+                      </IconButton>
+                    </TableCell>
+                    <TableCell align='center'>
+                      <IconButton onClick={() => handleDelete(person.guid)}>
+                        <Icon color='error'>delete</Icon>
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 </>
               );
