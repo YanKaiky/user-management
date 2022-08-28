@@ -2,6 +2,7 @@ import axios from 'axios';
 import PEOPLEAPI from './people';
 
 export interface IPeopleData {
+  guid: string;
   name: string;
   last_name: string;
   email: string;
