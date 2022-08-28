@@ -29,10 +29,10 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
   searchText = '',
   showSearchField = false,
   newFind = 'New',
-  showNewButton = true,
-  showBackButton = true,
-  showDeleteButton = true,
-  showSaveButton = true,
+  showNewButton = false,
+  showBackButton = false,
+  showDeleteButton = false,
+  showSaveButton = false,
   showSaveAndBackButton = false,
 
   loadingNewButton = false,
@@ -60,6 +60,7 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
       paddingX={2}
       display='flex'
       alignItems='center'
+      justifyContent='space-between'
       height={theme.spacing(5)}
       component={Paper}
     >
@@ -136,7 +137,7 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
 
       {loadingNewButton && !smDown && (<Skeleton width={87} height={60} />)}
 
-      {!smDown && !mdDown && <Divider variant='middle' orientation='vertical' />}
+      {showBackButton && !smDown && !mdDown && <Divider variant='middle' orientation='vertical' />}
 
       {(showBackButton && !loadingBackButton) && (
         <Button

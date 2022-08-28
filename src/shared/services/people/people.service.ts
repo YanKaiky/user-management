@@ -1,13 +1,14 @@
 import axios from 'axios';
 import PEOPLEAPI from './people';
 
-interface IPeopleData {
+export interface IPeopleData {
   name: string;
   last_name: string;
   email: string;
   cpf: string;
   birth_date: string;
   city_guid: string;
+  city: string;
 }
 
 const createPeople = async (data: Omit<IPeopleData, 'guid'>): Promise<IPeopleData> => {

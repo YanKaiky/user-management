@@ -1,7 +1,7 @@
 import axios from 'axios';
 import CITIESAPI from './cities';
 
-interface ICityData {
+export interface ICityData {
   guid: string;
   name: string;
   last_name: string;

@@ -21,7 +21,7 @@ const ListItemMenu: FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
   };
 
   return (
-    <ListItemButton selected={!!match} onClick={handleClick}>
+    <ListItemButton selected={match} onClick={handleClick}>
       <ListItemIcon>
         <Icon>{icon}</Icon>
       </ListItemIcon>
