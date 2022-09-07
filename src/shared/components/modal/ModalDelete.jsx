@@ -30,7 +30,7 @@ export const ModalDelete: FC<IModalDeleteProps> = ({ open, label, onClose, handl
         px: 4,
         pb: 3,
       }}>
-        <Box display='flex' justifyContent='center' padding='3rem'>
+        <Box display='flex' justifyContent='center' padding='3rem' textAlign='center'>
           <Typography id="modal-modal-title" variant="h6" component="h2">{label}</Typography>
         </Box>
 

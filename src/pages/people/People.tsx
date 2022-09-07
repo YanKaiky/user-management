@@ -130,7 +130,7 @@ export const People: FC = () => {
       <ModalDelete
         open={open}
         onClose={() => setOpen(false)}
-        label={`Delete Person ${name}?`}
+        label={`Delete person ${name}?`}
         handleDelete={() => handleDelete(guid)}
       />
     </>

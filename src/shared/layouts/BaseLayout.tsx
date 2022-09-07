@@ -26,7 +26,7 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, children, toolba
         )}
 
         <Typography display='flex' alignItems='center' variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'} overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
-          <Icon fontSize='inherit' sx={{ marginRight: '2rem' }}>{icon}</Icon>{' '}
+          <Icon fontSize='inherit' sx={{ marginRight: '1rem' }}>{icon}</Icon>{' '}
 
           {title}
         </Typography>
