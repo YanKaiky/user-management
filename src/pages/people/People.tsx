@@ -56,7 +56,7 @@ export const People: FC = () => {
 
   return (
     <>
-      <BaseLayout title='People' toolbar={
+      <BaseLayout icon='people' title='People' toolbar={
         <ToolbarDetails
           showSearchField
           showNewButton

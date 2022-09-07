@@ -3,12 +3,13 @@ import { Box, Icon, IconButton, Typography, useMediaQuery, useTheme } from '@mui
 import { useDrawerContext } from '../contexts';
 
 interface IBaseLayoutProps {
+  icon: string,
   title: string,
   toolbar?: ReactNode,
   children: ReactNode,
 }
 
-export const BaseLayout: FC<IBaseLayoutProps> = ({ title, children, toolbar }) => {
+export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, children, toolbar }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -24,7 +25,9 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ title, children, toolbar }) =
           </IconButton>
         )}
 
-        <Typography variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'} overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
+        <Typography display='flex' alignItems='center' variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'} overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
+          <Icon fontSize='inherit' sx={{ marginRight: '2rem' }}>{icon}</Icon>{' '}
+
           {title}
         </Typography>
       </Box>

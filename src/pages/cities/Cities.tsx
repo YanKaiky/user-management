@@ -23,7 +23,7 @@ export const Cities: FC = () => {
   console.log(cities);
 
   return (
-    <BaseLayout title='Cities' toolbar={
+    <BaseLayout icon='location_city' title='Cities' toolbar={
       <ToolbarDetails
         showSearchField
         showNewButton
