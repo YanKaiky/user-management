@@ -1,7 +1,7 @@
-import { Box, Button, Icon, IconButton, LinearProgress, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography } from '@mui/material';
+import { Icon, IconButton, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ToolbarDetails } from '../../shared/components';
+import { ModalDelete, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { IPeopleData, PeopleService } from '../../shared/services/people/people.service';
 
@@ -127,24 +127,12 @@ export const People: FC = () => {
         </TableContainer>
       </BaseLayout>
 
-      <Modal
+      <ModalDelete
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ overflow: 'scroll', paddingTop: '10%', paddingBottom: '10%', display: 'flex', justifyContent: 'center', }}
-      >
-        <Box sx={{ bgcolor: '#303134', width: '20%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', textAlign: 'center', padding: '1rem', borderRadius: '8px' }}>
-          <Typography sx={{ textAlign: 'end', bgcolor: 'red', cursor: 'pointer' }} onClick={() => setOpen(false)}>x</Typography>
-
-          <Typography>{`Delete Person ${name}?`}</Typography>
-
-          <Box display='flex' justifyContent='space-between'>
-            <Button variant='outlined' color='primary' onClick={() => setOpen(false)}>Cancelar</Button>
-            <Button variant='contained' color='error' onClick={() => handleDelete(guid)}>Deletar</Button>
-          </Box>
-        </Box>
-      </Modal>
+        label={`Delete Person ${name}?`}
+        handleDelete={() => handleDelete(guid)}
+      />
     </>
   );
 };
