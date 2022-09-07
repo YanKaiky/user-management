@@ -4,11 +4,7 @@ import CITIESAPI from './cities';
 export interface ICityData {
   guid: string;
   name: string;
-  last_name: string;
-  email: string;
-  cpf: string;
-  birth_date: string;
-  city_guid: string;
+  uf: string;
 }
 
 const createCity = async (data: Omit<ICityData, 'guid'>): Promise<ICityData> => {
