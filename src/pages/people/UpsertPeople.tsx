@@ -4,11 +4,11 @@ import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { PeopleService } from '../../shared/services/people/people.service';
+import { IPeopleData, PeopleService } from '../../shared/services/people/people.service';
 
 export const UpsertPeople: FC = () => {
   const { guid } = useParams();
-  const [people, setPeople] = useState({});
+  const [people, setPeople] = useState<IPeopleData>();
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export const UpsertPeople: FC = () => {
   return (
     <BaseLayout
       icon='people'
-      title={loading ? 'Update People' : guid ? `Update ${people.name}` : 'Create People'}
+      title={loading ? 'Update People' : guid ? `Update ${people?.name}` : 'Create People'}
       toolbar={
         <ToolbarDetails
           showSaveButton
