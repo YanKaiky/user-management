@@ -5,8 +5,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { PeopleService } from '../../shared/services/people/people.service';
-import { Form } from '@unform/web';
-import { UMTextField } from '../../shared/components/forms';
 
 export const UpsertPeople: FC = () => {
   const { guid } = useParams();
@@ -28,36 +26,24 @@ export const UpsertPeople: FC = () => {
     })();
   }, []);
 
-  const submit = async (data) => {
-    if (guid) {
-      await PeopleService.createPeople(data);
-    }
-
-    if (!guid) {
-      await PeopleService.updatePeople(guid, data);
-    }
-
-    navigate('/people');
-  };
-
   return (
-    <BaseLayout icon='people' title={loading ? 'Update People' : guid ? `Update ${people.name}` : 'Create People'} toolbar={
-      <ToolbarDetails
-        showSaveButton
-        showBackButton
-        saveButtonOnClick={() => navigate('/people')}
-        backButtonOnClick={() => navigate('/people')}
-      />
-    }>
+    <BaseLayout
+      icon='people'
+      title={loading ? 'Update People' : guid ? `Update ${people.name}` : 'Create People'}
+      toolbar={
+        <ToolbarDetails
+          showSaveButton
+          showBackButton
+          saveButtonOnClick={() => navigate('/people')}
+          backButtonOnClick={() => navigate('/people')}
+        />
+      }
+    >
       {
         loading ? (<LinearProgress variant='indeterminate' />) :
-          (
-            <Form onSubmit={(dt) => console.log(dt)}>
-              <UMTextField name='name' />
-            </Form>
-          )
+          <>
+          </>
       }
-
     </BaseLayout>
   );
 };
