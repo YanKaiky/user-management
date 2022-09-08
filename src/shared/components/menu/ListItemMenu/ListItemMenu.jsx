@@ -13,7 +13,7 @@ const ListItemMenu: FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
   const navigate = useNavigate();
 
   const resolvedPath = useResolvedPath(to);
-  const match = useMatch({ path: resolvedPath.pathname, end: false });
+  const match = useMatch({ path: resolvedPath.pathname, end: true });
 
   const handleClick = () => {
     navigate(to);
@@ -21,7 +21,7 @@ const ListItemMenu: FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
   };
 
   return (
-    <ListItemButton selected={match} onClick={handleClick}>
+    <ListItemButton selected={!!match} onClick={handleClick}>
       <ListItemIcon>
         <Icon>{icon}</Icon>
       </ListItemIcon>

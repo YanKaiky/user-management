@@ -1,6 +1,6 @@
 import { Icon, IconButton, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ModalDelete, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { IPeopleData, PeopleService } from '../../shared/services/people/people.service';
@@ -14,12 +14,14 @@ export const People: FC = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const navigate = useNavigate();
+
   const search = useMemo(() => {
     return searchParams.get('search') || '';
   }, [searchParams]);
 
   const validateCPF = (cpf: string) => {
-    const value = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, (_, c, p, f, char) => `${c}.${p}.${f}-${char}`);
+    const value = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, (_, c, p, f, digit) => `${c}.${p}.${f}-${digit}`);
 
     return value;
   };
@@ -60,6 +62,7 @@ export const People: FC = () => {
         <ToolbarDetails
           showSearchField
           showNewButton
+          newButtonOnClick={() => navigate('/people/create')}
           searchText={search}
           handleSearchText={(txt) => setSearchParams({ search: txt }, { replace: true })}
         />
@@ -91,7 +94,7 @@ export const People: FC = () => {
                       <TableCell>{validateCPF(person.cpf)}</TableCell>
                       <TableCell>{new Date(person.birth_date).toLocaleDateString('pt-BR')}</TableCell>
                       <TableCell align='center'>
-                        <IconButton>
+                        <IconButton onClick={() => navigate(`/people/${person.guid}`)}>
                           <Icon color='secondary'>edit</Icon>
                         </IconButton>
                       </TableCell>

@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Icon, Paper, Skeleton, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, Icon, Paper, Skeleton, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { FC } from 'react';
 
 interface IToolbarDetailsProps {
@@ -7,20 +7,17 @@ interface IToolbarDetailsProps {
   newFind?: string,
   showNewButton?: boolean,
   showBackButton?: boolean,
-  showDeleteButton?: boolean,
   showSaveButton?: boolean,
   showSaveAndBackButton?: boolean,
 
   loadingNewButton?: boolean,
   loadingBackButton?: boolean,
-  loadingDeleteButton?: boolean,
   loadingSaveButton?: boolean,
   loadingSaveAndBackButton?: boolean,
 
   handleSearchText?: (newText: string) => void;
   newButtonOnClick?: () => void;
   backButtonOnClick?: () => void;
-  deleteButtonOnClick?: () => void;
   saveButtonOnClick?: () => void;
   saveAndBackButtonOnClick?: () => void;
 }
@@ -31,20 +28,17 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
   newFind = 'New',
   showNewButton = false,
   showBackButton = false,
-  showDeleteButton = false,
   showSaveButton = false,
   showSaveAndBackButton = false,
 
   loadingNewButton = false,
   loadingBackButton = false,
-  loadingDeleteButton = false,
   loadingSaveButton = false,
   loadingSaveAndBackButton = false,
 
   handleSearchText,
   newButtonOnClick,
   backButtonOnClick,
-  deleteButtonOnClick,
   saveButtonOnClick,
   saveAndBackButtonOnClick
 }) => {
@@ -105,22 +99,6 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
 
       {loadingSaveAndBackButton && !smDown && !mdDown && (<Skeleton width={146} height={60} />)}
 
-      {(showDeleteButton && !loadingDeleteButton) && (
-        <Button
-          variant='contained'
-          color='error'
-          disableElevation
-          onClick={deleteButtonOnClick}
-          startIcon={<Icon>delete</Icon>}
-        >
-          <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
-            Delete
-          </Typography>
-        </Button>
-      )}
-
-      {loadingDeleteButton && (<Skeleton width={107} height={60} />)}
-
       {(showNewButton && !loadingNewButton && !smDown) && (
         <Button
           variant='outlined'
@@ -136,8 +114,6 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
       )}
 
       {loadingNewButton && !smDown && (<Skeleton width={87} height={60} />)}
-
-      {showBackButton && !smDown && !mdDown && <Divider variant='middle' orientation='vertical' />}
 
       {(showBackButton && !loadingBackButton) && (
         <Button
