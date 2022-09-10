@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
-import { Button, TextField } from '@mui/material';
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { PeopleService } from '../../shared/services/people/people.service';
+import { PeopleForm } from '../../shared/components/forms/PeopleForm';
 
 interface IFormData {
   name: string;
@@ -14,6 +13,13 @@ interface IFormData {
   cpf: string;
   birth_date: string;
   city_guid: string;
+}
+
+interface ITargetProps {
+  target: {
+    name: string | number,
+    value: string | number
+  }
 }
 
 export const CreatePeople: FC = () => {
@@ -30,7 +36,7 @@ export const CreatePeople: FC = () => {
 
   const navigate = useNavigate();
 
-  const setInput = (event: any) => {
+  const setInput = (event: ITargetProps) => {
     const { name, value } = event.target;
 
     const newPeople = {
@@ -46,8 +52,10 @@ export const CreatePeople: FC = () => {
       ...people,
       birth_date: '2002-12-22'
     };
-    
+
     await PeopleService.createPeople(peopleReq);
+
+    navigate('/people');
   };
 
   return (
@@ -58,35 +66,12 @@ export const CreatePeople: FC = () => {
         <ToolbarDetails
           showSaveButton
           showBackButton
-          saveButtonOnClick={() => {
-            sendRequest();
-            navigate('/people');
-          }}
+          saveButtonOnClick={() => sendRequest()}
           backButtonOnClick={() => navigate('/people')}
         />
       }
     >
-      <form
-        onChange={setInput}
-        onSubmit={(e) => {
-          e.preventDefault();
-          sendRequest();
-        }}
-      >
-        <TextField onChange={setInput} value={people.name} name="name" placeholder="Name" />
-
-        <TextField onChange={setInput} value={people.last_name} name="last_name" placeholder="Last name" />
-
-        <TextField onChange={setInput} value={people.email} name="email" placeholder="Email" />
-
-        <TextField onChange={setInput} value={people.cpf} name="cpf" placeholder="CPF" />
-
-        <TextField onChange={setInput} value={people.birth_date} name="birth_date" placeholder="Birth date" />
-
-        <TextField onChange={setInput} value={people.city_guid} name="city_guid" placeholder="City" />
-
-        <Button type='submit'>Submit</Button>
-      </form>
+      <PeopleForm setInput={setInput} sendRequest={sendRequest} data={people} />
     </BaseLayout>
   );
 };

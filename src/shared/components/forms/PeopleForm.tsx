@@ -1,9 +1,11 @@
-import { FC } from 'react';
-import { Button, TextField } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
+import { Autocomplete, Box, Button, TextField } from '@mui/material';
+import { CitiesService, ICityData } from '../../services/cities/cities.service';
 
 interface IFormData {
-  setInput: () => unknown,
-  sendRequest: () => unknown,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setInput: (event: any) => void,
+  sendRequest: () => void,
   data: {
     name: string;
     last_name: string;
@@ -15,6 +17,16 @@ interface IFormData {
 }
 
 export const PeopleForm: FC<IFormData> = ({ setInput, sendRequest, data }) => {
+  const [cities, setCities] = useState<ICityData[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const data = await CitiesService.getAllCities();
+
+      setCities(data);
+    })();
+  }, []);
+
   return (
     <form
       onChange={setInput}
@@ -33,7 +45,34 @@ export const PeopleForm: FC<IFormData> = ({ setInput, sendRequest, data }) => {
 
       <TextField onChange={setInput} value={data.birth_date} name="birth_date" placeholder="Birth date" />
 
-      <TextField onChange={setInput} value={data.city_guid} name="city_guid" placeholder="City" />
+      <Autocomplete
+        id="country-select-demo"
+        sx={{ width: 300, margin: 1 }}
+        options={cities}
+        autoHighlight
+        getOptionLabel={(option: ICityData) => option.name}
+        renderOption={(props, option) => (
+          <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+            {option.name}
+          </Box>
+        )}
+        renderInput={(params) => {
+          console.log(params.inputProps);
+
+          return (
+            <TextField
+              {...params}
+              label="City"
+              name='city_guid'
+              value={data.city_guid}
+              inputProps={{
+                ...params.inputProps,
+              }}
+            />
+          );
+        }}
+      />
+
 
       <Button type='submit'>Submit</Button>
     </form>
