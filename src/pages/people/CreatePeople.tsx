@@ -5,6 +5,8 @@ import { ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { PeopleService } from '../../shared/services/people/people.service';
 import { PeopleForm } from '../../shared/components/forms/PeopleForm';
+import { ICityData } from '../../shared/services/cities/cities.service';
+import { Dayjs } from 'dayjs';
 
 interface IFormData {
   name: string;
@@ -33,6 +35,8 @@ export const CreatePeople: FC = () => {
   };
 
   const [people, setPeople] = useState<IFormData>(data);
+  const [cityGuid, setCityGuid] = useState<ICityData | any>();
+  const [date, setDate] = useState<Dayjs | any>();
 
   const navigate = useNavigate();
 
@@ -50,7 +54,8 @@ export const CreatePeople: FC = () => {
   const sendRequest = async () => {
     const peopleReq = {
       ...people,
-      birth_date: '2002-12-22'
+      birth_date: date,
+      city_guid: cityGuid,
     };
 
     await PeopleService.createPeople(peopleReq);
@@ -71,7 +76,7 @@ export const CreatePeople: FC = () => {
         />
       }
     >
-      <PeopleForm setInput={setInput} sendRequest={sendRequest} data={people} />
+      <PeopleForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={people} />
     </BaseLayout>
   );
 };
