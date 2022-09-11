@@ -23,9 +23,9 @@ export const PeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate
 
   useEffect(() => {
     (async () => {
-      const data = await CitiesService.getAllCities();
+      const response = await CitiesService.getAllCities();
 
-      setCities(data);
+      setCities(response);
     })();
   }, []);
 
@@ -47,7 +47,7 @@ export const PeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate
         <Box display='flex' marginTop={2}>
           <TextField sx={{ marginRight: 0.5 }} value={data.email} name="email" label="Email" fullWidth />
 
-          <TextField sx={{ marginLeft: 0.5 }} value={data.cpf} name="cpf" label="CPF" fullWidth />
+          <TextField sx={{ marginLeft: 0.5 }} value={data.cpf} type='email' name="cpf" label="CPF" fullWidth />
         </Box>
 
         <Box display='flex' marginTop={2}>
