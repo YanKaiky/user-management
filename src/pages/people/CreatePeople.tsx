@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToolbarDetails } from '../../shared/components';
+import { CreatePeopleForm, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { PeopleService } from '../../shared/services/people/people.service';
-import { PeopleForm } from '../../shared/components/forms/PeopleForm';
 import { ICityData } from '../../shared/services/cities/cities.service';
 import { Dayjs } from 'dayjs';
 
@@ -76,7 +75,7 @@ export const CreatePeople: FC = () => {
         />
       }
     >
-      <PeopleForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={people} />
+      <CreatePeopleForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={people} />
     </BaseLayout>
   );
 };

@@ -1,7 +1,17 @@
 import axios from 'axios';
 import PEOPLEAPI from './people';
 
-export interface IUpsertPeopleData {
+export interface ICreatePeopleData {
+  name: string;
+  last_name: string;
+  email: string;
+  cpf: string;
+  birth_date: string;
+  city_guid: string;
+}
+
+export interface IUpdatePeopleData {
+  guid: string;
   name: string;
   last_name: string;
   email: string;
@@ -21,7 +31,7 @@ export interface IPeopleData {
   city: string;
 }
 
-const createPeople = async (data: IUpsertPeopleData): Promise<IUpsertPeopleData> => {
+const createPeople = async (data: ICreatePeopleData): Promise<ICreatePeopleData> => {
   try {
     const response = await axios.post(PEOPLEAPI, data);
 
@@ -57,7 +67,7 @@ const getPeopleByGuid = async (guid: string): Promise<IPeopleData> => {
   }
 };
 
-const updatePeople = async (guid: string, data: IUpsertPeopleData): Promise<void> => {
+const updatePeople = async (guid: string, data: IUpdatePeopleData): Promise<void> => {
   try {
     await axios.put(`${PEOPLEAPI}/${guid}`, data);
   } catch (error) {

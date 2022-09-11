@@ -3,11 +3,20 @@ import { LinearProgress } from '@mui/material';
 import { Dayjs } from 'dayjs';
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ToolbarDetails } from '../../shared/components';
-import { PeopleForm } from '../../shared/components/forms/PeopleForm';
+import { ToolbarDetails, UpdatePeopleForm } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { ICityData } from '../../shared/services/cities/cities.service';
-import { IUpsertPeopleData, PeopleService } from '../../shared/services/people/people.service';
+import { PeopleService } from '../../shared/services/people/people.service';
+
+interface IFormData {
+  guid: string;
+  name: string;
+  last_name: string;
+  email: string;
+  cpf: string;
+  birth_date: string;
+  city_guid: string;
+}
 
 interface ITargetProps {
   target: {
@@ -18,7 +27,7 @@ interface ITargetProps {
 
 export const UpdatePeople: FC = () => {
   const { guid } = useParams();
-  const [people, setPeople] = useState<IUpsertPeopleData | any>();
+  const [people, setPeople] = useState<IFormData | any>();
   const [cityGuid, setCityGuid] = useState<ICityData | any>();
   const [date, setDate] = useState<Dayjs | any>();
   const [loading, setLoading] = useState(true);
@@ -50,11 +59,11 @@ export const UpdatePeople: FC = () => {
   const sendRequest = async () => {
     const peopleReq = {
       ...people,
-      birth_date: date,
-      city_guid: cityGuid,
+      birth_date: date ?? date ?? people.birth_date,
+      city_guid: cityGuid ?? cityGuid ?? people.city_guid,
     };
 
-    await PeopleService.createPeople(peopleReq);
+    await PeopleService.updatePeople(people.guid, peopleReq);
 
     navigate('/people');
   };
@@ -73,7 +82,7 @@ export const UpdatePeople: FC = () => {
       }
     >
       {loading ? (<LinearProgress variant='indeterminate' />) :
-        <PeopleForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={people} />
+        <UpdatePeopleForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={people} />
       }
     </BaseLayout>
   );

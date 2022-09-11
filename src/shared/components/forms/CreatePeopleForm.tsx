@@ -2,7 +2,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Autocomplete, Box, TextField } from '@mui/material';
 import { CitiesService, ICityData } from '../../services/cities/cities.service';
-import { IUpsertPeopleData } from '../../services/people/people.service';
+import { ICreatePeopleData } from '../../services/people/people.service';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -15,10 +15,10 @@ interface IFormData {
   setDate: (date: any) => void,
   cityGuid: ICityData,
   setCityGuid: (guid: string | undefined) => void,
-  data: IUpsertPeopleData,
+  data: ICreatePeopleData,
 }
 
-export const PeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate, cityGuid, setCityGuid, data }) => {
+export const CreatePeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate, cityGuid, setCityGuid, data }) => {
   const [cities, setCities] = useState<ICityData[]>([]);
 
   useEffect(() => {
@@ -29,6 +29,8 @@ export const PeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate
     })();
   }, []);
 
+  console.log(data);
+  
   return (
     <Box sx={{ m: 1 }} >
       <form
