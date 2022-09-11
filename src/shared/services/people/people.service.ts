@@ -3,7 +3,7 @@ import PEOPLEAPI from './people';
 
 export interface ICreatePeopleData {
   name: string;
-  last_name: string;
+  last_name?: string;
   email: string;
   cpf: string;
   birth_date: string;
@@ -12,12 +12,12 @@ export interface ICreatePeopleData {
 
 export interface IUpdatePeopleData {
   guid: string;
-  name: string;
-  last_name: string;
-  email: string;
-  cpf: string;
-  birth_date: string;
-  city_guid: string;
+  name?: string;
+  last_name?: string;
+  email?: string;
+  cpf?: string;
+  birth_date?: string;
+  city_guid?: string;
 }
 
 export interface IPeopleData {
@@ -31,7 +31,7 @@ export interface IPeopleData {
   city: string;
 }
 
-const createPeople = async (data: ICreatePeopleData): Promise<ICreatePeopleData> => {
+const createPeople = async (data: ICreatePeopleData): Promise<IPeopleData> => {
   try {
     const response = await axios.post(PEOPLEAPI, data);
 

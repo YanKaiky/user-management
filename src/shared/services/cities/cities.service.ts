@@ -1,13 +1,24 @@
 import axios from 'axios';
 import CITIESAPI from './cities';
 
+export interface ICreateCityData {
+  name: string;
+  uf: string;
+}
+
+export interface IUpdateCityData {
+  guid: string;
+  name?: string;
+  uf?: string;
+}
+
 export interface ICityData {
   guid: string;
   name: string;
   uf: string;
 }
 
-const createCity = async (data: Omit<ICityData, 'guid'>): Promise<ICityData> => {
+const createCity = async (data: ICreateCityData): Promise<ICityData> => {
   try {
     const response = await axios.post(CITIESAPI, data);
 
@@ -43,7 +54,7 @@ const getCityByGuid = async (guid: string): Promise<ICityData> => {
   }
 };
 
-const updateCity = async (guid: string, data: ICityData): Promise<void> => {
+const updateCity = async (guid: string, data: IUpdateCityData): Promise<void> => {
   try {
     await axios.put(`${CITIESAPI}/${guid}`, data);
   } catch (error) {

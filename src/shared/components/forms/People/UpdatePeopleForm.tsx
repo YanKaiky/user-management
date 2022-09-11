@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useState } from 'react';
 import { Autocomplete, Box, TextField } from '@mui/material';
-import { CitiesService, ICityData } from '../../services/cities/cities.service';
-import { ICreatePeopleData } from '../../services/people/people.service';
+import { CitiesService, ICityData } from '../../../services/cities/cities.service';
+import { IUpdatePeopleData } from '../../../services/people/people.service';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -15,7 +15,7 @@ interface IFormData {
   setDate: (date: any) => void,
   cityGuid: ICityData,
   setCityGuid: (guid: string | undefined) => void,
-  data: ICreatePeopleData,
+  data: IUpdatePeopleData,
 }
 
 export const UpdatePeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate, cityGuid, setCityGuid, data }) => {

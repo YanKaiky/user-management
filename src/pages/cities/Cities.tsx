@@ -1,6 +1,6 @@
 import { Icon, IconButton, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ModalDelete, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { CitiesService, ICityData } from '../../shared/services/cities/cities.service';
@@ -13,6 +13,8 @@ export const Cities: FC = () => {
   const [name, setName] = useState<string>('');
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const navigate = useNavigate();
 
   const search = useMemo(() => {
     return searchParams.get('search') || '';
@@ -50,6 +52,7 @@ export const Cities: FC = () => {
         <ToolbarDetails
           showSearchField
           showNewButton
+          newButtonOnClick={() => navigate('/cities/create')}
           searchText={search}
           handleSearchText={(txt) => setSearchParams({ search: txt }, { replace: true })}
         />
@@ -66,22 +69,22 @@ export const Cities: FC = () => {
             </TableHead>
 
             <TableBody>
-              {filter.map((person) => {
+              {filter.map((city) => {
                 return (
                   <>
-                    <TableRow key={person.guid}>
-                      <TableCell>{person.name}</TableCell>
-                      <TableCell>{person.uf}</TableCell>
+                    <TableRow key={city.guid}>
+                      <TableCell>{city.name}</TableCell>
+                      <TableCell>{city.uf}</TableCell>
                       <TableCell align='center'>
-                        <IconButton>
+                        <IconButton onClick={() => navigate(`/cities/${city.guid}`)}>
                           <Icon color='secondary'>edit</Icon>
                         </IconButton>
                       </TableCell>
                       <TableCell align='center'>
                         <IconButton
                           onClick={() => {
-                            setGuid(person.guid);
-                            setName(person.name);
+                            setGuid(city.guid);
+                            setName(city.name);
                             setOpen(true);
                           }}
                         >
