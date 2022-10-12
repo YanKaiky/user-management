@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, CircularProgress, Grid, Typography } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import { ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
@@ -6,12 +6,15 @@ import { DashboardService, IDashboardData } from '../../shared/services/dashboar
 
 export const Dashboard: FC = () => {
   const [dashboard, setDashboard] = useState<IDashboardData>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const dataDashboard = await DashboardService.getValues();
 
       setDashboard(dataDashboard);
+      setLoading(false);
     })();
   }, []);
 
@@ -26,7 +29,11 @@ export const Dashboard: FC = () => {
                   <Typography variant='h5' align='center'>Total People</Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
-                    <Typography variant='h1'>{dashboard?.people}</Typography>
+                    {loading ? (
+                      <CircularProgress />
+                    ) :
+                      <Typography variant='h1'>{dashboard?.people}</Typography>
+                    }
                   </Box>
                 </CardContent>
               </Card>
@@ -38,7 +45,11 @@ export const Dashboard: FC = () => {
                   <Typography variant='h5' align='center'>Total UF&lsquo;s</Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
-                    <Typography variant='h1'>{dashboard?.ufs}</Typography>
+                    {loading ? (
+                      <CircularProgress />
+                    ) :
+                      <Typography variant='h1'>{dashboard?.ufs}</Typography>
+                    }
                   </Box>
                 </CardContent>
               </Card>
@@ -50,7 +61,11 @@ export const Dashboard: FC = () => {
                   <Typography variant='h5' align='center'>Total Cities</Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
-                    <Typography variant='h1'>{dashboard?.cities}</Typography>
+                    {loading ? (
+                      <CircularProgress />
+                    ) :
+                      <Typography variant='h1'>{dashboard?.cities}</Typography>
+                    }
                   </Box>
                 </CardContent>
               </Card>
