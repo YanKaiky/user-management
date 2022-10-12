@@ -23,7 +23,7 @@ export const Dashboard: FC = () => {
             <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
               <Card>
                 <CardContent>
-                  <Typography variant='h5' align='center'>Total de Pessoas</Typography>
+                  <Typography variant='h5' align='center'>Total People</Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
                     <Typography variant='h1'>{dashboard?.people}</Typography>
@@ -35,7 +35,7 @@ export const Dashboard: FC = () => {
             <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
               <Card>
                 <CardContent>
-                  <Typography variant='h5' align='center'>Total de UF&lsquo;s</Typography>
+                  <Typography variant='h5' align='center'>Total UF&lsquo;s</Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
                     <Typography variant='h1'>{dashboard?.ufs}</Typography>
@@ -47,7 +47,7 @@ export const Dashboard: FC = () => {
             <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
               <Card>
                 <CardContent>
-                  <Typography variant='h5' align='center'>Total de Cidades</Typography>
+                  <Typography variant='h5' align='center'>Total Cities</Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
                     <Typography variant='h1'>{dashboard?.cities}</Typography>
