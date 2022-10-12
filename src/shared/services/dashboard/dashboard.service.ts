@@ -9,7 +9,11 @@ export interface IDashboardData {
 
 const getValues = async (): Promise<IDashboardData> => {
   try {
-    const response = await axios.get(DASHBOARDAPI);
+    const response = await axios.get(DASHBOARDAPI, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
 
     return response.data;
   } catch (error) {

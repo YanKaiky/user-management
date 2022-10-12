@@ -33,7 +33,11 @@ export interface IPeopleData {
 
 const createPeople = async (data: ICreatePeopleData): Promise<IPeopleData> => {
   try {
-    const response = await axios.post(PEOPLEAPI, data);
+    const response = await axios.post(PEOPLEAPI, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
 
     return response.data;
   } catch (error) {
@@ -45,7 +49,11 @@ const createPeople = async (data: ICreatePeopleData): Promise<IPeopleData> => {
 
 const getAllPeople = async (): Promise<IPeopleData[]> => {
   try {
-    const response = await axios.get(PEOPLEAPI);
+    const response = await axios.get(PEOPLEAPI, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
 
     return response.data;
   } catch (error) {
@@ -57,7 +65,11 @@ const getAllPeople = async (): Promise<IPeopleData[]> => {
 
 const getPeopleByGuid = async (guid: string): Promise<IPeopleData> => {
   try {
-    const response = await axios.get(`${PEOPLEAPI}/${guid}`);
+    const response = await axios.get(`${PEOPLEAPI}/${guid}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
 
     return response.data;
   } catch (error) {
@@ -69,7 +81,11 @@ const getPeopleByGuid = async (guid: string): Promise<IPeopleData> => {
 
 const updatePeople = async (guid: string, data: IUpdatePeopleData): Promise<void> => {
   try {
-    await axios.put(`${PEOPLEAPI}/${guid}`, data);
+    await axios.put(`${PEOPLEAPI}/${guid}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
   } catch (error) {
     console.log(error);
 
@@ -79,7 +95,11 @@ const updatePeople = async (guid: string, data: IUpdatePeopleData): Promise<void
 
 const deletePeople = async (guid: string): Promise<void> => {
   try {
-    await axios.delete(`${PEOPLEAPI}/${guid}`);
+    await axios.delete(`${PEOPLEAPI}/${guid}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
   } catch (error) {
     console.log(error);
 

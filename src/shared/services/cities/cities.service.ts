@@ -20,7 +20,11 @@ export interface ICityData {
 
 const createCity = async (data: ICreateCityData): Promise<ICityData> => {
   try {
-    const response = await axios.post(CITIESAPI, data);
+    const response = await axios.post(CITIESAPI, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
 
     return response.data;
   } catch (error) {
@@ -32,7 +36,11 @@ const createCity = async (data: ICreateCityData): Promise<ICityData> => {
 
 const getAllCities = async (): Promise<ICityData[]> => {
   try {
-    const response = await axios.get(CITIESAPI);
+    const response = await axios.get(CITIESAPI, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
 
     return response.data;
   } catch (error) {
@@ -44,7 +52,11 @@ const getAllCities = async (): Promise<ICityData[]> => {
 
 const getCityByGuid = async (guid: string): Promise<ICityData> => {
   try {
-    const response = await axios.get(`${CITIESAPI}/${guid}`);
+    const response = await axios.get(`${CITIESAPI}/${guid}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
 
     return response.data;
   } catch (error) {
@@ -56,7 +68,11 @@ const getCityByGuid = async (guid: string): Promise<ICityData> => {
 
 const updateCity = async (guid: string, data: IUpdateCityData): Promise<void> => {
   try {
-    await axios.put(`${CITIESAPI}/${guid}`, data);
+    await axios.put(`${CITIESAPI}/${guid}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
   } catch (error) {
     console.log(error);
 
@@ -66,7 +82,11 @@ const updateCity = async (guid: string, data: IUpdateCityData): Promise<void> =>
 
 const deleteCity = async (guid: string): Promise<void> => {
   try {
-    await axios.delete(`${CITIESAPI}/${guid}`);
+    await axios.delete(`${CITIESAPI}/${guid}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
+      }
+    });
   } catch (error) {
     console.log(error);
 

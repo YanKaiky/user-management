@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
-import { useAppThemeContext, useDrawerContext } from '../../contexts';
+import { useAppThemeContext, useAuthContext, useDrawerContext } from '../../contexts';
 import ListItemMenu from './ListItemMenu/ListItemMenu';
 
 interface IMenuProps {
@@ -11,6 +11,7 @@ export const Menu: FC<IMenuProps> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const { logout } = useAuthContext();
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
   const { themeName, toggleTheme } = useAppThemeContext();
 
@@ -39,6 +40,13 @@ export const Menu: FC<IMenuProps> = ({ children }) => {
                   {themeName === 'light' ? <Icon>dark_mode</Icon> : <Icon>brightness_4</Icon>}
                 </ListItemIcon>
                 <ListItemText primary='Theme' />
+              </ListItemButton>
+
+              <ListItemButton onClick={logout}>
+                <ListItemIcon>
+                  <Icon>logout</Icon>
+                </ListItemIcon>
+                <ListItemText primary='Logout' />
               </ListItemButton>
             </List>
           </Box>

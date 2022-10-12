@@ -1,21 +1,20 @@
-import axios from "axios";
-import API from "./auth";
+import axios from 'axios';
+import API from './auth';
 
 interface IAuth {
   token: string
 }
 
-const auth = async (email: string, password: string): Promise<IAuth | Error> => {
+const auth = async (encode: string): Promise<IAuth | Error> => {
   try {
     const response = await axios.post(API, {
       data: {
-        email,
-        password,
+        encode,
       }
     });
 
-    if (!response) new Error('Login error') 
-    
+    if (!response) new Error('Login error');
+
     return response.data;
   } catch (error) {
     console.log(error);
@@ -26,4 +25,4 @@ const auth = async (email: string, password: string): Promise<IAuth | Error> => 
 
 export const AuthService = {
   auth,
-}
+};

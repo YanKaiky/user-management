@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth/auth.service';
 
 interface IAuthContextData {
   isAuthenticated: boolean,
-  login: (email: string, password: string) => Promise<string | void>,
+  login: (encode: string) => Promise<string | void>,
   logout: () => void,
 }
 
@@ -22,8 +22,8 @@ export const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
     if (token) setToken(JSON.parse(token));
   }, []);
 
-  const handleLogin = useCallback(async (email: string, password: string) => {
-    const result = await AuthService.auth(email, password);
+  const handleLogin = useCallback(async (encode: string) => {
+    const result = await AuthService.auth(encode);
 
     if (result instanceof Error) return result.message;
 
