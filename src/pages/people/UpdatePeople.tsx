@@ -74,10 +74,10 @@ export const UpdatePeople: FC = () => {
       title={loading ? 'Update People' : `Update ${people?.name}`}
       toolbar={
         <ToolbarDetails
-          showSaveButton
           showBackButton
-          saveButtonOnClick={() => sendRequest()}
+          showSaveButton
           backButtonOnClick={() => navigate('/people')}
+          saveButtonOnClick={() => sendRequest()}
         />
       }
     >

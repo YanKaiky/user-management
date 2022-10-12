@@ -25,11 +25,11 @@ interface IToolbarDetailsProps {
 export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
   searchText = '',
   showSearchField = false,
-  newFind = 'New',
-  showNewButton = false,
   showBackButton = false,
+  showNewButton = false,
   showSaveButton = false,
   showSaveAndBackButton = false,
+  newFind = 'New',
 
   loadingNewButton = false,
   loadingBackButton = false,
@@ -67,6 +67,22 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
         />
       )}
 
+      {(showBackButton && !loadingBackButton) && (
+        <Button
+          variant='outlined'
+          color='primary'
+          disableElevation
+          onClick={backButtonOnClick}
+          startIcon={<Icon>arrow_back_ios</Icon>}
+        >
+          <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+            Back
+          </Typography>
+        </Button>
+      )}
+
+      {loadingBackButton && (<Skeleton width={93} height={60} />)}
+
       {(showSaveButton && !loadingSaveButton) && (
         <Button
           variant='contained'
@@ -80,6 +96,8 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
           </Typography>
         </Button>
       )}
+
+      {loadingSaveAndBackButton && !smDown && !mdDown && (<Skeleton width={146} height={60} />)}
 
       {loadingSaveButton && (<Skeleton width={110} height={60} />)}
 
@@ -97,8 +115,6 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
         </Button>
       )}
 
-      {loadingSaveAndBackButton && !smDown && !mdDown && (<Skeleton width={146} height={60} />)}
-
       {(showNewButton && !loadingNewButton && !smDown) && (
         <Button
           variant='outlined'
@@ -114,22 +130,6 @@ export const ToolbarDetails: FC<IToolbarDetailsProps> = ({
       )}
 
       {loadingNewButton && !smDown && (<Skeleton width={87} height={60} />)}
-
-      {(showBackButton && !loadingBackButton) && (
-        <Button
-          variant='outlined'
-          color='primary'
-          disableElevation
-          onClick={backButtonOnClick}
-          startIcon={<Icon>arrow_back_ios</Icon>}
-        >
-          <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
-            Back
-          </Typography>
-        </Button>
-      )}
-
-      {loadingBackButton && (<Skeleton width={93} height={60} />)}
     </Box>
   );
 };

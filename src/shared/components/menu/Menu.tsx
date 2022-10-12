@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useAppThemeContext, useAuthContext, useDrawerContext } from '../../contexts';
 import ListItemMenu from './ListItemMenu/ListItemMenu';
 
@@ -48,6 +48,12 @@ export const Menu: FC<IMenuProps> = ({ children }) => {
                 </ListItemIcon>
                 <ListItemText primary='Logout' />
               </ListItemButton>
+
+              <ListItemText>
+                <Typography variant='body2' color='gray' textAlign='center'>
+                  {`© ${new Date().getUTCFullYear()}, User Management`}
+                </Typography>
+              </ListItemText>
             </List>
           </Box>
         </Box>
