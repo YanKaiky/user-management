@@ -1,7 +1,7 @@
 const DrawerRoutes = [
   {
-    label: 'Home Page',
-    icon: 'home',
+    label: 'Dashboard',
+    icon: 'dashboard_outlined',
     path: '/'
   },
   {

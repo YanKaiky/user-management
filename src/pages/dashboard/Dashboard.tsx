@@ -2,25 +2,21 @@ import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import { ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { CitiesService, ICityData } from '../../shared/services/cities/cities.service';
-import { IPeopleData, PeopleService } from '../../shared/services/people/people.service';
+import { DashboardService, IDashboardData } from '../../shared/services/dashboard/dashboard.service';
 
 export const Dashboard: FC = () => {
-  const [cities, setCities] = useState<ICityData[]>([]);
-  const [people, setPeople] = useState<IPeopleData[]>([]);
+  const [dashboard, setDashboard] = useState<IDashboardData>();
 
   useEffect(() => {
     (async () => {
-      const dataPeople = await PeopleService.getAllPeople();
-      const dataCities = await CitiesService.getAllCities();
+      const dataDashboard = await DashboardService.getValues();
 
-      setPeople(dataPeople);
-      setCities(dataCities);
+      setDashboard(dataDashboard);
     })();
   }, []);
 
   return (
-    <BaseLayout icon='home' title='Home Page' toolbar={<ToolbarDetails showNewButton={false} />}>
+    <BaseLayout icon='dashboard_outlined' title='Dashboard' toolbar={<ToolbarDetails showNewButton={false} />}>
       <Box width='100%' display='flex'>
         <Grid container margin={1}>
           <Grid item container spacing={2}>
@@ -30,7 +26,7 @@ export const Dashboard: FC = () => {
                   <Typography variant='h5' align='center'>Total de Pessoas</Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
-                    <Typography variant='h1'>{people.length}</Typography>
+                    <Typography variant='h1'>{dashboard?.people}</Typography>
                   </Box>
                 </CardContent>
               </Card>
@@ -42,7 +38,7 @@ export const Dashboard: FC = () => {
                   <Typography variant='h5' align='center'>Total de UF&lsquo;s</Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
-                    <Typography variant='h1'>20</Typography>
+                    <Typography variant='h1'>{dashboard?.ufs}</Typography>
                   </Box>
                 </CardContent>
               </Card>
@@ -54,7 +50,7 @@ export const Dashboard: FC = () => {
                   <Typography variant='h5' align='center'>Total de Cidades</Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
-                    <Typography variant='h1'>{cities.length}</Typography>
+                    <Typography variant='h1'>{dashboard?.cities}</Typography>
                   </Box>
                 </CardContent>
               </Card>
