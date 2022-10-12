@@ -21,7 +21,7 @@ export const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('TOKEN');
 
-    if (token) setToken(JSON.parse(token));
+    if (token) setToken(JSON.parse(JSON.stringify(token)));
   }, []);
 
   const handleLogin = useCallback(async (encode: string) => {

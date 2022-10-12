@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, TextField } from '@mui/material';
-import { FC} from 'react';
+import { FC } from 'react';
 import { IUpdateCityData } from '../../../services/cities/cities.service';
 
 interface IFormData {
