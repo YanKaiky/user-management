@@ -52,6 +52,11 @@ export const UpdatePeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, s
 
         <Box display='flex' marginTop={2}>
           <Autocomplete
+            openText='Open'
+            closeText='Close'
+            noOptionsText='No Options'
+            loadingText='Loading...'
+            disablePortal
             options={cities}
             getOptionLabel={(option: ICityData) => option.name}
             onChange={(_, newValue) => setCityGuid(newValue?.guid)}
