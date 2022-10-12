@@ -27,7 +27,7 @@ export const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
 
     if (result instanceof Error) return result.message;
 
-    localStorage.setItem('TOKEN', JSON.stringify(result.token));
+    localStorage.setItem('TOKEN', result.token);
 
     setToken(result.token);
   }, []);
