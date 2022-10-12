@@ -1,3 +1,4 @@
+import { createBrowserHistory } from 'history';
 import { createContext, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { AuthService } from '../services/auth/auth.service';
 
@@ -15,6 +16,7 @@ interface IAuthProviderProps {
 
 export const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string>();
+  const history = createBrowserHistory();
 
   useEffect(() => {
     const token = localStorage.getItem('TOKEN');
@@ -34,6 +36,8 @@ export const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem('TOKEN');
+
+    history.push('/');
 
     setToken(undefined);
   }, []);

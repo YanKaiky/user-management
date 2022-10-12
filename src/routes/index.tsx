@@ -2,10 +2,27 @@ import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { People, CreatePeople, UpdatePeople, Cities, Dashboard, UpdateCity, CreateCity } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
-import DrawerRoutes from './DrawerRoutes/DrawerRoutes';
 
 const AppRoutes = () => {
   const { setDrawerOptions } = useDrawerContext();
+
+  const DrawerRoutes = [
+    {
+      label: 'Dashboard',
+      icon: 'dashboard_outlined',
+      path: '/'
+    },
+    {
+      label: 'People',
+      icon: 'people',
+      path: '/people'
+    },
+    {
+      label: 'Cities',
+      icon: 'location_city',
+      path: '/cities'
+    },
+  ];
 
   useEffect(() => {
     setDrawerOptions(DrawerRoutes);
