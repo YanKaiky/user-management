@@ -7,11 +7,12 @@ interface IAuth {
 
 const auth = async (encode: string): Promise<IAuth | Error> => {
   try {
-    const response = await axios.post(API, {
-      data: {
-        encode,
-      }
-    });
+    const response = await axios.post(API, null, {
+      headers: {
+        Authorization: `Basic ${encode}`,
+      },
+    }
+    );
 
     if (!response) new Error('Login error');
 

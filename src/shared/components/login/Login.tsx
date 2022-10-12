@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardActions, CardContent, TextField, Typography } from '@mui/material';
 import { FC, ReactNode, useState } from 'react';
 import { useAuthContext } from '../../contexts';
+import { encode as BufferBase64 } from 'base-64';
 
 interface ILoginProps {
   children: ReactNode;
@@ -14,7 +15,7 @@ export const Login: FC<ILoginProps> = ({ children }) => {
 
   if (isAuthenticated) return (<>{children}</>);
 
-  const encode = Buffer.from(`${email}:${password}`).toString('base64');
+  const encode = BufferBase64(`${email}:${password}`);
 
   return (
     <Box width='100vw' height='100vh' display='flex' alignItems='center' justifyContent='center'>
