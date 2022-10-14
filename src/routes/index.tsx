@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Users, CreateUser, UpdateUser, Cities, Dashboard, UpdateCity, CreateCity } from '../pages';
+import { Users, CreateUser, UpdateUser, Cities, Dashboard, UpdateCity, CreateCity, Continents } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 const AppRoutes = () => {
@@ -51,7 +51,9 @@ const AppRoutes = () => {
       <Route path="/users/create" element={<CreateUser />} />
       <Route path="/users/:guid" element={<UpdateUser />} />
 
-      <Route path="/continents" element={<Cities />} />
+      <Route path="/continents" element={<Continents />} />
+      <Route path="/continents/create" element={<CreateCity />} />
+      <Route path="/continents/:guid" element={<UpdateCity />} />
 
       <Route path="/countries" element={<Cities />} />
       <Route path="/countries/create" element={<CreateCity />} />
