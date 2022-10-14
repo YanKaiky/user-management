@@ -3,10 +3,10 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ModalDelete, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { IPeopleData, PeopleService } from '../../shared/services/people/people.service';
+import { IUserData, UsersService } from '../../shared/services/users/users.service';
 
-export const People: FC = () => {
-  const [people, setPeople] = useState<IPeopleData[]>([]);
+export const Users: FC = () => {
+  const [user, setUser] = useState<IUserData[]>([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [guid, setGuid] = useState<string>('');
@@ -26,7 +26,7 @@ export const People: FC = () => {
     return value;
   };
 
-  const filter = people.filter((value) => {
+  const filter = user.filter((value) => {
     return value.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
       value.last_name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
       value.email.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
@@ -38,31 +38,31 @@ export const People: FC = () => {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const data = await PeopleService.getAllPeople();
+      const data = await UsersService.getAllUsers();
 
-      setPeople(data);
+      setUser(data);
       setLoading(false);
     })();
   }, [search]);
 
   const handleDelete = async (guid: string) => {
-    await PeopleService.deletePeople(guid);
+    await UsersService.deleteUser(guid);
 
     setLoading(true);
-    const data = await PeopleService.getAllPeople();
+    const data = await UsersService.getAllUsers();
 
-    setPeople(data);
+    setUser(data);
     setLoading(false);
     setOpen(false);
   };
 
   return (
     <>
-      <BaseLayout icon='people' title='People' toolbar={
+      <BaseLayout icon='people' title='Users' toolbar={
         <ToolbarDetails
           showSearchField
           showNewButton
-          newButtonOnClick={() => navigate('/people/create')}
+          newButtonOnClick={() => navigate('/users/create')}
           searchText={search}
           handleSearchText={(txt) => setSearchParams({ search: txt }, { replace: true })}
         />
@@ -94,7 +94,7 @@ export const People: FC = () => {
                       <TableCell>{validateCPF(person.cpf)}</TableCell>
                       <TableCell>{new Date(person.birth_date).toLocaleDateString('pt-BR')}</TableCell>
                       <TableCell align='center'>
-                        <IconButton onClick={() => navigate(`/people/${person.guid}`)}>
+                        <IconButton onClick={() => navigate(`/users/${person.guid}`)}>
                           <Icon color='secondary'>edit</Icon>
                         </IconButton>
                       </TableCell>

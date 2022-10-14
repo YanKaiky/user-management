@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { People, CreatePeople, UpdatePeople, Cities, Dashboard, UpdateCity, CreateCity } from '../pages';
+import { Users, CreateUser, UpdateUser, Cities, Dashboard, UpdateCity, CreateCity } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 const AppRoutes = () => {
@@ -13,13 +13,28 @@ const AppRoutes = () => {
       path: '/'
     },
     {
-      label: 'People',
+      label: 'Users',
       icon: 'people',
-      path: '/people'
+      path: '/users'
+    },
+    {
+      label: 'Continents',
+      icon: 'public_outlined',
+      path: '/continents'
+    },
+    {
+      label: 'Countries',
+      icon: 'flag',
+      path: '/countries'
+    },
+    {
+      label: 'States',
+      icon: 'travel_explore_rounded',
+      path: '/states'
     },
     {
       label: 'Cities',
-      icon: 'location_city',
+      icon: 'where_to_vote_rounded',
       path: '/cities'
     },
   ];
@@ -31,12 +46,25 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
-      <Route path="/people" element={<People />} />
-      <Route path="/people/create" element={<CreatePeople />} />
-      <Route path="/people/:guid" element={<UpdatePeople />} />
+
+      <Route path="/users" element={<Users />} />
+      <Route path="/users/create" element={<CreateUser />} />
+      <Route path="/users/:guid" element={<UpdateUser />} />
+
+      <Route path="/continents" element={<Cities />} />
+
+      <Route path="/countries" element={<Cities />} />
+      <Route path="/countries/create" element={<CreateCity />} />
+      <Route path="/countries/:guid" element={<UpdateCity />} />
+
+      <Route path="/states" element={<Cities />} />
+      <Route path="/states/create" element={<CreateCity />} />
+      <Route path="/states/:guid" element={<UpdateCity />} />
+
       <Route path="/cities" element={<Cities />} />
       <Route path="/cities/create" element={<CreateCity />} />
       <Route path="/cities/:guid" element={<UpdateCity />} />
+
       <Route path="*" element={<Navigate to='/' />} />
     </Routes>
   );

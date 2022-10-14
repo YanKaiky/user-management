@@ -3,10 +3,10 @@ import { LinearProgress } from '@mui/material';
 import { Dayjs } from 'dayjs';
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ToolbarDetails, UpdatePeopleForm } from '../../shared/components';
+import { ToolbarDetails, UpdateUserForm } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { ICityData } from '../../shared/services/cities/cities.service';
-import { PeopleService } from '../../shared/services/people/people.service';
+import { UsersService } from '../../shared/services/users/users.service';
 
 interface IFormData {
   guid: string;
@@ -25,9 +25,9 @@ interface ITargetProps {
   }
 }
 
-export const UpdatePeople: FC = () => {
+export const UpdateUser: FC = () => {
   const { guid } = useParams();
-  const [people, setPeople] = useState<IFormData | any>();
+  const [user, setUser] = useState<IFormData | any>();
   const [cityGuid, setCityGuid] = useState<ICityData | any>();
   const [date, setDate] = useState<Dayjs | any>();
   const [loading, setLoading] = useState(true);
@@ -37,9 +37,9 @@ export const UpdatePeople: FC = () => {
   useEffect(() => {
     (async () => {
       if (guid) {
-        const data = await PeopleService.getPeopleByGuid(guid);
+        const data = await UsersService.getUserByGuid(guid);
 
-        setPeople(data);
+        setUser(data);
         setLoading(false);
       }
     })();
@@ -48,41 +48,41 @@ export const UpdatePeople: FC = () => {
   const setInput = (event: ITargetProps) => {
     const { name, value } = event.target;
 
-    const newPeople = {
-      ...people,
+    const newUser = {
+      ...user,
       [name]: value,
     };
 
-    setPeople(newPeople);
+    setUser(newUser);
   };
 
   const sendRequest = async () => {
-    const peopleReq = {
-      ...people,
-      birth_date: date ?? date ?? people.birth_date,
-      city_guid: cityGuid ?? cityGuid ?? people.city_guid,
+    const userReq = {
+      ...user,
+      birth_date: date ?? date ?? user.birth_date,
+      city_guid: cityGuid ?? cityGuid ?? user.city_guid,
     };
 
-    await PeopleService.updatePeople(people.guid, peopleReq);
+    await UsersService.updateUser(user.guid, userReq);
 
-    navigate('/people');
+    navigate('/users');
   };
 
   return (
     <BaseLayout
       icon='people'
-      title={loading ? 'Update People' : `Update ${people?.name}`}
+      title={loading ? 'Update User' : `Update ${user?.name}`}
       toolbar={
         <ToolbarDetails
           showBackButton
           showSaveButton
-          backButtonOnClick={() => navigate('/people')}
+          backButtonOnClick={() => navigate('/users')}
           saveButtonOnClick={() => sendRequest()}
         />
       }
     >
       {loading ? (<LinearProgress variant='indeterminate' />) :
-        <UpdatePeopleForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={people} />
+        <UpdateUserForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={user} />
       }
     </BaseLayout>
   );

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import PEOPLEAPI from './people';
+import USERSAPI from './users';
 
-export interface ICreatePeopleData {
+export interface ICreateUserData {
   name: string;
   last_name?: string;
   email: string;
@@ -10,7 +10,7 @@ export interface ICreatePeopleData {
   city_guid: string;
 }
 
-export interface IUpdatePeopleData {
+export interface IUpdateUserData {
   guid: string;
   name?: string;
   last_name?: string;
@@ -20,7 +20,7 @@ export interface IUpdatePeopleData {
   city_guid?: string;
 }
 
-export interface IPeopleData {
+export interface IUserData {
   guid: string;
   name: string;
   last_name: string;
@@ -31,9 +31,9 @@ export interface IPeopleData {
   city: string;
 }
 
-const createPeople = async (data: ICreatePeopleData): Promise<IPeopleData> => {
+const createUser = async (data: ICreateUserData): Promise<IUserData> => {
   try {
-    const response = await axios.post(PEOPLEAPI, data, {
+    const response = await axios.post(USERSAPI, data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
       }
@@ -47,9 +47,9 @@ const createPeople = async (data: ICreatePeopleData): Promise<IPeopleData> => {
   }
 };
 
-const getAllPeople = async (): Promise<IPeopleData[]> => {
+const getAllUsers = async (): Promise<IUserData[]> => {
   try {
-    const response = await axios.get(PEOPLEAPI, {
+    const response = await axios.get(USERSAPI, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
       }
@@ -63,9 +63,9 @@ const getAllPeople = async (): Promise<IPeopleData[]> => {
   }
 };
 
-const getPeopleByGuid = async (guid: string): Promise<IPeopleData> => {
+const getUserByGuid = async (guid: string): Promise<IUserData> => {
   try {
-    const response = await axios.get(`${PEOPLEAPI}/${guid}`, {
+    const response = await axios.get(`${USERSAPI}/${guid}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
       }
@@ -79,9 +79,9 @@ const getPeopleByGuid = async (guid: string): Promise<IPeopleData> => {
   }
 };
 
-const updatePeople = async (guid: string, data: IUpdatePeopleData): Promise<void> => {
+const updateUser = async (guid: string, data: IUpdateUserData): Promise<void> => {
   try {
-    await axios.put(`${PEOPLEAPI}/${guid}`, data, {
+    await axios.put(`${USERSAPI}/${guid}`, data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
       }
@@ -93,9 +93,9 @@ const updatePeople = async (guid: string, data: IUpdatePeopleData): Promise<void
   }
 };
 
-const deletePeople = async (guid: string): Promise<void> => {
+const deleteUser = async (guid: string): Promise<void> => {
   try {
-    await axios.delete(`${PEOPLEAPI}/${guid}`, {
+    await axios.delete(`${USERSAPI}/${guid}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('TOKEN')}`
       }
@@ -107,10 +107,10 @@ const deletePeople = async (guid: string): Promise<void> => {
   }
 };
 
-export const PeopleService = {
-  createPeople,
-  getAllPeople,
-  getPeopleByGuid,
-  updatePeople,
-  deletePeople
+export const UsersService = {
+  createUser,
+  getAllUsers,
+  getUserByGuid,
+  updateUser,
+  deleteUser
 };

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CreatePeopleForm, ToolbarDetails } from '../../shared/components';
+import { CreateUserForm, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { PeopleService } from '../../shared/services/people/people.service';
+import { UsersService } from '../../shared/services/users/users.service';
 import { ICityData } from '../../shared/services/cities/cities.service';
 import { Dayjs } from 'dayjs';
 
@@ -23,7 +23,7 @@ interface ITargetProps {
   }
 }
 
-export const CreatePeople: FC = () => {
+export const CreateUser: FC = () => {
   const data = {
     name: '',
     last_name: '',
@@ -33,7 +33,7 @@ export const CreatePeople: FC = () => {
     city_guid: '',
   };
 
-  const [people, setPeople] = useState<IFormData>(data);
+  const [user, setUser] = useState<IFormData>(data);
   const [cityGuid, setCityGuid] = useState<ICityData | any>();
   const [date, setDate] = useState<Dayjs | any>();
 
@@ -42,40 +42,40 @@ export const CreatePeople: FC = () => {
   const setInput = (event: ITargetProps) => {
     const { name, value } = event.target;
 
-    const newPeople = {
-      ...people,
+    const newUser = {
+      ...user,
       [name]: value,
     };
 
-    setPeople(newPeople);
+    setUser(newUser);
   };
 
   const sendRequest = async () => {
-    const peopleReq = {
-      ...people,
+    const userReq = {
+      ...user,
       birth_date: date,
       city_guid: cityGuid,
     };
 
-    await PeopleService.createPeople(peopleReq);
+    await UsersService.createUser(userReq);
 
-    navigate('/people');
+    navigate('/users');
   };
 
   return (
     <BaseLayout
       icon='people'
-      title='Create People'
+      title='Create User'
       toolbar={
         <ToolbarDetails
           showSaveButton
           showBackButton
           saveButtonOnClick={() => sendRequest()}
-          backButtonOnClick={() => navigate('/people')}
+          backButtonOnClick={() => navigate('/users')}
         />
       }
     >
-      <CreatePeopleForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={people} />
+      <CreateUserForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={user} />
     </BaseLayout>
   );
 };

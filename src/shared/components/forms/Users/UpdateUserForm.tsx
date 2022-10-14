@@ -2,7 +2,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Autocomplete, Box, TextField } from '@mui/material';
 import { CitiesService, ICityData } from '../../../services/cities/cities.service';
-import { ICreatePeopleData } from '../../../services/people/people.service';
+import { IUpdateUserData } from '../../../services/users/users.service';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -15,10 +15,10 @@ interface IFormData {
   setDate: (date: any) => void,
   cityGuid: ICityData,
   setCityGuid: (guid: string | undefined) => void,
-  data: ICreatePeopleData,
+  data: IUpdateUserData,
 }
 
-export const CreatePeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate, cityGuid, setCityGuid, data }) => {
+export const UpdateUserForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate, cityGuid, setCityGuid, data }) => {
   const [cities, setCities] = useState<ICityData[]>([]);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export const CreatePeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, s
             getOptionLabel={(option: ICityData) => option.name}
             onChange={(_, newValue) => setCityGuid(newValue?.guid)}
             value={cityGuid}
-            sx={{ marginRight: 0.5 }}
+            sx={{ marginRight: 1 }}
             fullWidth
             renderOption={(props, option) => (
               <Box
@@ -84,7 +84,7 @@ export const CreatePeopleForm: FC<IFormData> = ({ setInput, sendRequest, date, s
             }
           />
 
-          <LocalizationProvider sx={{ marginLeft: 0.5 }} dateAdapter={AdapterDayjs}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Birth date"
               value={date}

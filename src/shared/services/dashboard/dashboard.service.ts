@@ -1,10 +1,20 @@
 import axios from 'axios';
 import DASHBOARDAPI from './dashboard';
 
+export interface IContinentsValuesData {
+  guid: string;
+  name: string;
+}
+
 export interface IDashboardData {
-  people: number;
+  continents: {
+    values: IContinentsValuesData[],
+    length: number,
+  };
+  countries: number;
+  states: number;
   cities: number;
-  ufs: number;
+  users: number;
 }
 
 const getValues = async (): Promise<IDashboardData> => {
