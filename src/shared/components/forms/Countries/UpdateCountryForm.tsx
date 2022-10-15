@@ -18,7 +18,7 @@ interface IFormData {
   data: IUpdateUserData,
 }
 
-export const UpdateUserForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate, cityGuid, setCityGuid, data }) => {
+export const UpdateCountryForm: FC<IFormData> = ({ setInput, sendRequest, date, setDate, cityGuid, setCityGuid, data }) => {
   const [cities, setCities] = useState<ICityData[]>([]);
 
   useEffect(() => {

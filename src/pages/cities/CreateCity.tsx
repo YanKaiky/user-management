@@ -7,7 +7,7 @@ import { CitiesService } from '../../shared/services/cities/cities.service';
 
 interface IFormData {
   name: string;
-  uf: string;
+  state_guid: string;
 }
 
 interface ITargetProps {
@@ -20,7 +20,7 @@ interface ITargetProps {
 export const CreateCity: FC = () => {
   const data = {
     name: '',
-    uf: '',
+    state_guid: '',
   };
 
   const [city, setCity] = useState<IFormData>(data);

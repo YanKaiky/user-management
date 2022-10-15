@@ -70,7 +70,7 @@ export const CreateUserForm: FC<IFormData> = ({ setInput, sendRequest, date, set
                 component="li"
                 sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
               >
-                {`${option.name} (${option.uf})`}
+                {`${option.name} (${option.state})`}
               </Box>
             )}
             renderInput={(params) =>

@@ -1,19 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CreateUserForm, ToolbarDetails } from '../../shared/components';
+import { CreateCityForm, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { UsersService } from '../../shared/services/users/users.service';
-import { ICityData } from '../../shared/services/cities/cities.service';
-import { Dayjs } from 'dayjs';
+import { CountriesService, ICountryData } from '../../shared/services/countries/countries.service';
 
 interface IFormData {
   name: string;
-  last_name: string;
-  email: string;
-  cpf: string;
-  birth_date: string;
-  city_guid: string;
+  continent_guid: string;
 }
 
 interface ITargetProps {
@@ -26,56 +20,50 @@ interface ITargetProps {
 export const CreateCountry: FC = () => {
   const data = {
     name: '',
-    last_name: '',
-    email: '',
-    cpf: '',
-    birth_date: '',
-    city_guid: '',
+    continent_guid: '',
   };
 
-  const [user, setUser] = useState<IFormData>(data);
-  const [cityGuid, setCityGuid] = useState<ICityData | any>();
-  const [date, setDate] = useState<Dayjs | any>();
+  const [country, setCountry] = useState<IFormData>(data);
+  const [continentGuid, setContinentGuid] = useState<ICountryData | any>();
 
   const navigate = useNavigate();
 
   const setInput = (event: ITargetProps) => {
     const { name, value } = event.target;
 
-    const newUser = {
-      ...user,
+    const newCountry = {
+      ...country,
       [name]: value,
     };
 
-    setUser(newUser);
+    setCountry(newCountry);
   };
 
   const sendRequest = async () => {
-    const userReq = {
-      ...user,
-      birth_date: date,
-      city_guid: cityGuid,
+    const countryReq = {
+      ...country,
+      continent_guid: continentGuid,
     };
 
-    await UsersService.createUser(userReq);
+    await CountriesService.createCountry(countryReq);
 
-    navigate('/users');
+    navigate('/countries');
   };
 
   return (
     <BaseLayout
-      icon='people'
-      title='Create User'
+      icon='flag'
+      title='Create Country'
       toolbar={
         <ToolbarDetails
           showSaveButton
           showBackButton
           saveButtonOnClick={() => sendRequest()}
-          backButtonOnClick={() => navigate('/users')}
+          backButtonOnClick={() => navigate('/countries')}
         />
       }
     >
-      <CreateUserForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={user} />
+      <CreateCityForm setInput={setInput} sendRequest={sendRequest} continentGuid={continentGuid} setContinentGuid={setContinentGuid} data={country} />
     </BaseLayout>
   );
 };

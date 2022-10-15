@@ -22,7 +22,7 @@ export const Cities: FC = () => {
 
   const filter = cities.filter((value) => {
     return value.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-      value.uf.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+      value.state.toLocaleLowerCase().includes(search.toLocaleLowerCase());
   });
 
   useEffect(() => {
@@ -62,7 +62,8 @@ export const Cities: FC = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell>UF</TableCell>
+                <TableCell>State</TableCell>
+                <TableCell>Country</TableCell>
                 <TableCell align='center'>Edit</TableCell>
                 <TableCell align='center'>Delete</TableCell>
               </TableRow>
@@ -74,7 +75,8 @@ export const Cities: FC = () => {
                   <>
                     <TableRow key={city.guid}>
                       <TableCell>{city.name}</TableCell>
-                      <TableCell>{city.uf}</TableCell>
+                      <TableCell>{city.state}</TableCell>
+                      <TableCell>{city.country}</TableCell>
                       <TableCell align='center'>
                         <IconButton onClick={() => navigate(`/cities/${city.guid}`)}>
                           <Icon color='secondary'>edit</Icon>

@@ -15,6 +15,7 @@ export interface IUpdateCountryData {
 export interface ICountryData {
   guid: string;
   name: string;
+  continent: string;
   continent_guid: string;
 }
 

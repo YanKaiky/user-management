@@ -22,7 +22,7 @@ export const CreateCityForm: FC<IFormData> = ({ setInput, sendRequest, data }) =
         <Box display='flex'>
           <TextField sx={{ marginRight: 0.5 }} value={data.name} name="name" label="Name" fullWidth />
 
-          <TextField sx={{ marginLeft: 0.5 }} value={data.uf} name="uf" label="UF" fullWidth />
+          <TextField sx={{ marginLeft: 0.5 }} value={data.state_guid} name="state_guid" label="State" fullWidth />
         </Box>
       </form>
     </Box>

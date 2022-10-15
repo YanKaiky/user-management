@@ -3,19 +3,21 @@ import CITIESAPI from './cities';
 
 export interface ICreateCityData {
   name: string;
-  uf: string;
+  state_guid: string;
 }
 
 export interface IUpdateCityData {
   guid: string;
   name?: string;
-  uf?: string;
+  state_guid?: string;
 }
 
 export interface ICityData {
   guid: string;
   name: string;
-  uf: string;
+  state_guid?: string;
+  state: string;
+  country: string;
 }
 
 const createCity = async (data: ICreateCityData): Promise<ICityData> => {

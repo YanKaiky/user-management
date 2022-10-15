@@ -29,6 +29,8 @@ export interface IUserData {
   birth_date: string;
   city_guid: string;
   city: string;
+  state: string;
+  country: string;
 }
 
 const createUser = async (data: ICreateUserData): Promise<IUserData> => {

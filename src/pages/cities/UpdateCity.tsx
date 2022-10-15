@@ -9,7 +9,7 @@ import { CitiesService } from '../../shared/services/cities/cities.service';
 interface IFormData {
   guid: string;
   name: string;
-  uf: string;
+  state_guid: string;
 }
 
 interface ITargetProps {

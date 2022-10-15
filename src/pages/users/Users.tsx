@@ -74,9 +74,11 @@ export const Users: FC = () => {
                 <TableCell>Name</TableCell>
                 <TableCell>Last Name</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>City</TableCell>
                 <TableCell>CPF</TableCell>
                 <TableCell>Birth Date</TableCell>
+                <TableCell>City</TableCell>
+                <TableCell>State</TableCell>
+                <TableCell>Country</TableCell>
                 <TableCell align='center'>Edit</TableCell>
                 <TableCell align='center'>Delete</TableCell>
               </TableRow>
@@ -87,12 +89,14 @@ export const Users: FC = () => {
                 return (
                   <>
                     <TableRow key={person.guid}>
-                      <TableCell>{person.name}</TableCell>
-                      <TableCell>{person.last_name}</TableCell>
-                      <TableCell>{person.email}</TableCell>
-                      <TableCell>{person.city}</TableCell>
-                      <TableCell>{validateCPF(person.cpf)}</TableCell>
-                      <TableCell>{new Date(person.birth_date).toLocaleDateString('pt-BR')}</TableCell>
+                      <TableCell title={person.name}>{person.name}</TableCell>
+                      <TableCell title={person.last_name}>{person.last_name}</TableCell>
+                      <TableCell title={person.email}>{person.email}</TableCell>
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} title={validateCPF(person.cpf)}>{validateCPF(person.cpf)}</TableCell>
+                      <TableCell title={new Date(person.birth_date).toLocaleDateString('pt-BR')}>{new Date(person.birth_date).toLocaleDateString('pt-BR')}</TableCell>
+                      <TableCell title={person.city}>{person.city}</TableCell>
+                      <TableCell title={person.state}>{person.state}</TableCell>
+                      <TableCell title={person.country}>{person.country}</TableCell>
                       <TableCell align='center'>
                         <IconButton onClick={() => navigate(`/users/${person.guid}`)}>
                           <Icon color='secondary'>edit</Icon>
@@ -133,7 +137,7 @@ export const Users: FC = () => {
       <ModalDelete
         open={open}
         onClose={() => setOpen(false)}
-        label={`Delete person ${name}?`}
+        label={`Delete user ${name}?`}
         handleDelete={() => handleDelete(guid)}
       />
     </>

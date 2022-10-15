@@ -19,6 +19,7 @@ export interface IStateData {
   name: string;
   uf: string;
   country_guid: string;
+  country: string;
 }
 
 const createState = async (data: ICreateStateData): Promise<IStateData> => {

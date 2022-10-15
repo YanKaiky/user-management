@@ -61,6 +61,7 @@ export const Countries: FC = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
+                <TableCell>Continent</TableCell>
                 <TableCell align='center'>Edit</TableCell>
                 <TableCell align='center'>Delete</TableCell>
               </TableRow>
@@ -72,6 +73,7 @@ export const Countries: FC = () => {
                   <>
                     <TableRow key={country.guid}>
                       <TableCell>{country.name}</TableCell>
+                      <TableCell>{country.continent}</TableCell>
                       <TableCell align='center'>
                         <IconButton onClick={() => navigate(`/users/${country.guid}`)}>
                           <Icon color='secondary'>edit</Icon>
@@ -112,7 +114,7 @@ export const Countries: FC = () => {
       <ModalDelete
         open={open}
         onClose={() => setOpen(false)}
-        label={`Delete person ${name}?`}
+        label={`Delete country ${name}?`}
         handleDelete={() => handleDelete(guid)}
       />
     </>
