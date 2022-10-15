@@ -1,19 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CreateUserForm, ToolbarDetails } from '../../shared/components';
+import { CreateContinentForm, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { UsersService } from '../../shared/services/users/users.service';
-import { ICityData } from '../../shared/services/cities/cities.service';
-import { Dayjs } from 'dayjs';
+import { ContinentsService } from '../../shared/services/continents/continents.service';
 
 interface IFormData {
   name: string;
-  last_name: string;
-  email: string;
-  cpf: string;
-  birth_date: string;
-  city_guid: string;
 }
 
 interface ITargetProps {
@@ -26,56 +19,43 @@ interface ITargetProps {
 export const CreateContinent: FC = () => {
   const data = {
     name: '',
-    last_name: '',
-    email: '',
-    cpf: '',
-    birth_date: '',
-    city_guid: '',
   };
 
-  const [user, setUser] = useState<IFormData>(data);
-  const [cityGuid, setCityGuid] = useState<ICityData | any>();
-  const [date, setDate] = useState<Dayjs | any>();
+  const [continent, setContinent] = useState<IFormData>(data);
 
   const navigate = useNavigate();
 
   const setInput = (event: ITargetProps) => {
     const { name, value } = event.target;
 
-    const newUser = {
-      ...user,
+    const newContinent = {
+      ...continent,
       [name]: value,
     };
 
-    setUser(newUser);
+    setContinent(newContinent);
   };
 
   const sendRequest = async () => {
-    const userReq = {
-      ...user,
-      birth_date: date,
-      city_guid: cityGuid,
-    };
+    await ContinentsService.createContinent(continent);
 
-    await UsersService.createUser(userReq);
-
-    navigate('/users');
+    navigate('/continents');
   };
 
   return (
     <BaseLayout
-      icon='people'
-      title='Create User'
+      icon='public_outlined'
+      title='Create Continent'
       toolbar={
         <ToolbarDetails
           showSaveButton
           showBackButton
           saveButtonOnClick={() => sendRequest()}
-          backButtonOnClick={() => navigate('/users')}
+          backButtonOnClick={() => navigate('/continents')}
         />
       }
     >
-      <CreateUserForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={user} />
+      <CreateContinentForm setInput={setInput} sendRequest={sendRequest} data={continent} />
     </BaseLayout>
   );
 };

@@ -1,7 +1,24 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Users, CreateUser, UpdateUser, Cities, Dashboard, UpdateCity, CreateCity, Continents } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
+import {
+  Users,
+  CreateUser,
+  UpdateUser,
+  Cities,
+  Dashboard,
+  UpdateCity,
+  CreateCity,
+  Continents,
+  CreateContinent,
+  UpdateContinent,
+  Countries,
+  CreateCountry,
+  UpdateCountry,
+  States,
+  CreateState,
+  UpdateState
+} from '../pages';
 
 const AppRoutes = () => {
   const { setDrawerOptions } = useDrawerContext();
@@ -52,16 +69,16 @@ const AppRoutes = () => {
       <Route path="/users/:guid" element={<UpdateUser />} />
 
       <Route path="/continents" element={<Continents />} />
-      <Route path="/continents/create" element={<CreateCity />} />
-      <Route path="/continents/:guid" element={<UpdateCity />} />
+      <Route path="/continents/create" element={<CreateContinent />} />
+      <Route path="/continents/:guid" element={<UpdateContinent />} />
 
-      <Route path="/countries" element={<Cities />} />
-      <Route path="/countries/create" element={<CreateCity />} />
-      <Route path="/countries/:guid" element={<UpdateCity />} />
+      <Route path="/countries" element={<Countries />} />
+      <Route path="/countries/create" element={<CreateCountry />} />
+      <Route path="/countries/:guid" element={<UpdateCountry />} />
 
-      <Route path="/states" element={<Cities />} />
-      <Route path="/states/create" element={<CreateCity />} />
-      <Route path="/states/:guid" element={<UpdateCity />} />
+      <Route path="/states" element={<States />} />
+      <Route path="/states/create" element={<CreateState />} />
+      <Route path="/states/:guid" element={<UpdateState />} />
 
       <Route path="/cities" element={<Cities />} />
       <Route path="/cities/create" element={<CreateCity />} />

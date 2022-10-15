@@ -3,10 +3,10 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ModalDelete, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { IUserData, UsersService } from '../../shared/services/users/users.service';
+import { ICountryData, CountriesService } from '../../shared/services/countries/countries.service';
 
 export const Countries: FC = () => {
-  const [user, setUser] = useState<IUserData[]>([]);
+  const [country, setCountry] = useState<ICountryData[]>([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [guid, setGuid] = useState<string>('');
@@ -20,49 +20,38 @@ export const Countries: FC = () => {
     return searchParams.get('search') || '';
   }, [searchParams]);
 
-  const validateCPF = (cpf: string) => {
-    const value = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, (_, c, p, f, digit) => `${c}.${p}.${f}-${digit}`);
-
-    return value;
-  };
-
-  const filter = user.filter((value) => {
-    return value.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-      value.last_name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-      value.email.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-      validateCPF(value.cpf).includes(search.toLocaleLowerCase()) ||
-      new Date(value.birth_date).toLocaleDateString('pt-BR').includes(search) ||
-      value.city.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+  const filter = country.filter((value) => {
+    return value.name.toLocaleLowerCase().includes(search.toLocaleLowerCase());
   });
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const data = await UsersService.getAllUsers();
+      const data = await CountriesService.getAllCountries();
 
-      setUser(data);
+      setCountry(data);
       setLoading(false);
     })();
   }, [search]);
 
   const handleDelete = async (guid: string) => {
-    await UsersService.deleteUser(guid);
+    await CountriesService.deleteCountry(guid);
 
     setLoading(true);
-    const data = await UsersService.getAllUsers();
+    const data = await CountriesService.getAllCountries();
 
-    setUser(data);
+    setCountry(data);
     setLoading(false);
     setOpen(false);
   };
 
   return (
     <>
-      <BaseLayout icon='people' title='Users' toolbar={
+      <BaseLayout icon='flag' title='Countries' toolbar={
         <ToolbarDetails
           showSearchField
           showNewButton
-          newButtonOnClick={() => navigate('/users/create')}
+          newButtonOnClick={() => navigate('/countries/create')}
           searchText={search}
           handleSearchText={(txt) => setSearchParams({ search: txt }, { replace: true })}
         />
@@ -72,37 +61,27 @@ export const Countries: FC = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell>Last Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>City</TableCell>
-                <TableCell>CPF</TableCell>
-                <TableCell>Birth Date</TableCell>
                 <TableCell align='center'>Edit</TableCell>
                 <TableCell align='center'>Delete</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {filter.map((person) => {
+              {filter.map((country) => {
                 return (
                   <>
-                    <TableRow key={person.guid}>
-                      <TableCell>{person.name}</TableCell>
-                      <TableCell>{person.last_name}</TableCell>
-                      <TableCell>{person.email}</TableCell>
-                      <TableCell>{person.city}</TableCell>
-                      <TableCell>{validateCPF(person.cpf)}</TableCell>
-                      <TableCell>{new Date(person.birth_date).toLocaleDateString('pt-BR')}</TableCell>
+                    <TableRow key={country.guid}>
+                      <TableCell>{country.name}</TableCell>
                       <TableCell align='center'>
-                        <IconButton onClick={() => navigate(`/users/${person.guid}`)}>
+                        <IconButton onClick={() => navigate(`/users/${country.guid}`)}>
                           <Icon color='secondary'>edit</Icon>
                         </IconButton>
                       </TableCell>
                       <TableCell align='center'>
                         <IconButton
                           onClick={() => {
-                            setGuid(person.guid);
-                            setName(person.name);
+                            setGuid(country.guid);
+                            setName(country.name);
                             setOpen(true);
                           }}
                         >
