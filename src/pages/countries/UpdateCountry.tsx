@@ -1,21 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LinearProgress } from '@mui/material';
-import { Dayjs } from 'dayjs';
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ToolbarDetails, UpdateUserForm } from '../../shared/components';
+import { ToolbarDetails, UpdateCountryForm } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { ICityData } from '../../shared/services/cities/cities.service';
-import { UsersService } from '../../shared/services/users/users.service';
+import { IContinentData } from '../../shared/services/continents/continents.service';
+import { CountriesService } from '../../shared/services/countries/countries.service';
 
 interface IFormData {
-  guid: string;
   name: string;
-  last_name: string;
-  email: string;
-  cpf: string;
-  birth_date: string;
-  city_guid: string;
+  continent_guid: string;
 }
 
 interface ITargetProps {
@@ -27,9 +21,8 @@ interface ITargetProps {
 
 export const UpdateCountry: FC = () => {
   const { guid } = useParams();
-  const [user, setUser] = useState<IFormData | any>();
-  const [cityGuid, setCityGuid] = useState<ICityData | any>();
-  const [date, setDate] = useState<Dayjs | any>();
+  const [country, setCountry] = useState<IFormData | any>();
+  const [continentGuid, setCotinentGuid] = useState<IContinentData | any>();
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -37,9 +30,9 @@ export const UpdateCountry: FC = () => {
   useEffect(() => {
     (async () => {
       if (guid) {
-        const data = await UsersService.getUserByGuid(guid);
+        const data = await CountriesService.getCountryByGuid(guid);
 
-        setUser(data);
+        setCountry(data);
         setLoading(false);
       }
     })();
@@ -48,41 +41,40 @@ export const UpdateCountry: FC = () => {
   const setInput = (event: ITargetProps) => {
     const { name, value } = event.target;
 
-    const newUser = {
-      ...user,
+    const newCountry = {
+      ...country,
       [name]: value,
     };
 
-    setUser(newUser);
+    setCountry(newCountry);
   };
 
   const sendRequest = async () => {
-    const userReq = {
-      ...user,
-      birth_date: date ?? date ?? user.birth_date,
-      city_guid: cityGuid ?? cityGuid ?? user.city_guid,
+    const countryReq = {
+      ...country,
+      continent_guid: continentGuid,
     };
 
-    await UsersService.updateUser(user.guid, userReq);
+    await CountriesService.updateCountry(country.guid, countryReq);
 
-    navigate('/users');
+    navigate('/countries');
   };
 
   return (
     <BaseLayout
-      icon='people'
-      title={loading ? 'Update User' : `Update ${user?.name}`}
+      icon='flag'
+      title={loading ? 'Update Country' : `Update ${country?.name}`}
       toolbar={
         <ToolbarDetails
           showBackButton
           showSaveButton
-          backButtonOnClick={() => navigate('/users')}
+          backButtonOnClick={() => navigate('/countries')}
           saveButtonOnClick={() => sendRequest()}
         />
       }
     >
       {loading ? (<LinearProgress variant='indeterminate' />) :
-        <UpdateUserForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={user} />
+        <UpdateCountryForm setInput={setInput} sendRequest={sendRequest} continentGuid={continentGuid} setContinentGuid={setCotinentGuid} data={country} />
       }
     </BaseLayout>
   );

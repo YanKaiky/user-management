@@ -1,24 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useState } from 'react';
 import { Autocomplete, Box, TextField } from '@mui/material';
-import { CountriesService, ICountryData, ICreateCountryData } from '../../../services/countries/countries.service';
+import { ICreateCountryData } from '../../../services/countries/countries.service';
+import { ContinentsService, IContinentData } from '../../../services/continents/continents.service';
 
 interface IFormData {
   setInput: (event: any) => void,
   sendRequest: () => void,
-  countryGuid: ICountryData,
-  setCountryGuid: (guid: string | undefined) => void,
+  continentGuid: IContinentData,
+  setContinentGuid: (guid: string | undefined) => void,
   data: ICreateCountryData,
 }
 
-export const CreateCountryForm: FC<IFormData> = ({ setInput, sendRequest, countryGuid, setCountryGuid, data }) => {
-  const [countries, setCountries] = useState<ICountryData[]>([]);
+export const CreateCountryForm: FC<IFormData> = ({ setInput, sendRequest, continentGuid, setContinentGuid, data }) => {
+  const [continents, setContinents] = useState<IContinentData[]>([]);
 
   useEffect(() => {
     (async () => {
-      const response = await CountriesService.getAllCountries();
+      const response = await ContinentsService.getAllContinents();
 
-      setCountries(response);
+      setContinents(response);
     })();
   }, []);
 
@@ -40,10 +41,10 @@ export const CreateCountryForm: FC<IFormData> = ({ setInput, sendRequest, countr
             noOptionsText='No Options'
             loadingText='Loading...'
             disablePortal
-            options={countries}
-            getOptionLabel={(option: ICountryData) => option.name}
-            onChange={(_, newValue) => setCountryGuid(newValue?.guid)}
-            value={countryGuid}
+            options={continents}
+            getOptionLabel={(option: IContinentData) => option.name}
+            onChange={(_, newValue) => setContinentGuid(newValue?.guid)}
+            value={continentGuid}
             sx={{ marginLeft: 0.5 }}
             fullWidth
             renderOption={(props, option) => (

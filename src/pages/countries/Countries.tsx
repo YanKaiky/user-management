@@ -75,7 +75,7 @@ export const Countries: FC = () => {
                       <TableCell>{country.name}</TableCell>
                       <TableCell>{country.continent}</TableCell>
                       <TableCell align='center'>
-                        <IconButton onClick={() => navigate(`/users/${country.guid}`)}>
+                        <IconButton onClick={() => navigate(`/countries/${country.guid}`)}>
                           <Icon color='secondary'>edit</Icon>
                         </IconButton>
                       </TableCell>

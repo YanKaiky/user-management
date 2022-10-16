@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CreateCityForm, ToolbarDetails } from '../../shared/components';
+import { CreateCountryForm, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { CountriesService, ICountryData } from '../../shared/services/countries/countries.service';
 
@@ -63,7 +63,7 @@ export const CreateCountry: FC = () => {
         />
       }
     >
-      <CreateCityForm setInput={setInput} sendRequest={sendRequest} continentGuid={continentGuid} setContinentGuid={setContinentGuid} data={country} />
+      <CreateCountryForm setInput={setInput} sendRequest={sendRequest} continentGuid={continentGuid} setContinentGuid={setContinentGuid} data={country} />
     </BaseLayout>
   );
 };
