@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { CreateCityForm, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
 import { CitiesService } from '../../shared/services/cities/cities.service';
+import { IStateData } from '../../shared/services/states/states.service';
 
 interface IFormData {
   name: string;
@@ -24,6 +25,7 @@ export const CreateCity: FC = () => {
   };
 
   const [city, setCity] = useState<IFormData>(data);
+  const [stateGuid, setStateGuid] = useState<IStateData | any>();
 
   const navigate = useNavigate();
 
@@ -39,7 +41,12 @@ export const CreateCity: FC = () => {
   };
 
   const sendRequest = async () => {
-    await CitiesService.createCity(city);
+    const cityReq = {
+      ...city,
+      state_guid: stateGuid,
+    };
+
+    await CitiesService.createCity(cityReq);
 
     navigate('/cities');
   };
@@ -57,7 +64,7 @@ export const CreateCity: FC = () => {
         />
       }
     >
-      <CreateCityForm setInput={setInput} sendRequest={sendRequest} data={city} />
+      <CreateCityForm setInput={setInput} sendRequest={sendRequest} stateGuid={stateGuid} setStateGuid={setStateGuid} data={city} />
     </BaseLayout>
   );
 };

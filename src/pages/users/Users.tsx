@@ -32,7 +32,9 @@ export const Users: FC = () => {
       value.email.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
       validateCPF(value.cpf).includes(search.toLocaleLowerCase()) ||
       new Date(value.birth_date).toLocaleDateString('pt-BR').includes(search) ||
-      value.city.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+      value.city.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
+      value.state.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
+      value.country.toLocaleLowerCase().includes(search.toLocaleLowerCase());
   });
 
   useEffect(() => {

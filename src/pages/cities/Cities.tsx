@@ -22,7 +22,8 @@ export const Cities: FC = () => {
 
   const filter = cities.filter((value) => {
     return value.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-      value.state.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+      value.state.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
+      value.country.toLocaleLowerCase().includes(search.toLocaleLowerCase());
   });
 
   useEffect(() => {

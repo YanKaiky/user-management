@@ -21,7 +21,8 @@ export const Countries: FC = () => {
   }, [searchParams]);
 
   const filter = country.filter((value) => {
-    return value.name.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+    return value.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
+      value.continent.toLocaleLowerCase().includes(search.toLocaleLowerCase());
   });
 
   useEffect(() => {
