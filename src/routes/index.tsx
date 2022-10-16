@@ -51,7 +51,7 @@ const AppRoutes = () => {
     },
     {
       label: 'Cities',
-      icon: 'where_to_vote_rounded',
+      icon: 'location_city',
       path: '/cities'
     },
   ];
