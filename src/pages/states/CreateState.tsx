@@ -1,19 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CreateUserForm, ToolbarDetails } from '../../shared/components';
+import { CreateStateForm, ToolbarDetails } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
-import { UsersService } from '../../shared/services/users/users.service';
-import { ICityData } from '../../shared/services/cities/cities.service';
-import { Dayjs } from 'dayjs';
+import { ICountryData } from '../../shared/services/countries/countries.service';
+import { StatesService } from '../../shared/services/states/states.service';
 
 interface IFormData {
   name: string;
-  last_name: string;
-  email: string;
-  cpf: string;
-  birth_date: string;
-  city_guid: string;
+  uf: string;
+  country_guid: string;
 }
 
 interface ITargetProps {
@@ -26,56 +22,51 @@ interface ITargetProps {
 export const CreateState: FC = () => {
   const data = {
     name: '',
-    last_name: '',
-    email: '',
-    cpf: '',
-    birth_date: '',
-    city_guid: '',
+    uf: '',
+    country_guid: '',
   };
 
-  const [user, setUser] = useState<IFormData>(data);
-  const [cityGuid, setCityGuid] = useState<ICityData | any>();
-  const [date, setDate] = useState<Dayjs | any>();
+  const [state, setState] = useState<IFormData>(data);
+  const [countryGuid, setCountryGuid] = useState<ICountryData | any>();
 
   const navigate = useNavigate();
 
   const setInput = (event: ITargetProps) => {
     const { name, value } = event.target;
 
-    const newUser = {
-      ...user,
+    const newState = {
+      ...state,
       [name]: value,
     };
 
-    setUser(newUser);
+    setState(newState);
   };
 
   const sendRequest = async () => {
-    const userReq = {
-      ...user,
-      birth_date: date,
-      city_guid: cityGuid,
+    const stateReq = {
+      ...state,
+      country_guid: countryGuid,
     };
 
-    await UsersService.createUser(userReq);
+    await StatesService.createState(stateReq);
 
-    navigate('/users');
+    navigate('/states');
   };
 
   return (
     <BaseLayout
-      icon='people'
-      title='Create User'
+      icon='travel_explore_rounded'
+      title='Create State'
       toolbar={
         <ToolbarDetails
           showSaveButton
           showBackButton
           saveButtonOnClick={() => sendRequest()}
-          backButtonOnClick={() => navigate('/users')}
+          backButtonOnClick={() => navigate('/states')}
         />
       }
     >
-      <CreateUserForm setInput={setInput} sendRequest={sendRequest} date={date} setDate={setDate} cityGuid={cityGuid} setCityGuid={setCityGuid} data={user} />
+      <CreateStateForm setInput={setInput} sendRequest={sendRequest} countryGuid={countryGuid} setCountryGuid={setCountryGuid} data={state} />
     </BaseLayout>
   );
 };

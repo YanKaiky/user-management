@@ -7,6 +7,8 @@ export * from './forms/Continents/CreateContinentForm';
 export * from './forms/Continents/UpdateContinentForm';
 export * from './forms/Countries/CreateCountryForm';
 export * from './forms/Countries/UpdateCountryForm';
+export * from './forms/States/CreateStateForm';
+export * from './forms/States/UpdateStateForm';
 export * from './forms/Cities/CreateCityForm';
 export * from './forms/Cities/UpdateCityForm';
 export * from './forms/Users/CreateUserForm';
