@@ -9,7 +9,7 @@ const auth = async (encode: string): Promise<IAuth | Error> => {
   try {
     const response = await axios.post(API, null, {
       headers: {
-        Authorization: `Basic ${encode}`,
+        Authorization: `Bearer ${encode}`,
       },
     }
     );
